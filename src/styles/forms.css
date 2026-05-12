@@ -1,0 +1,95 @@
+.form-card {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.form-field label,
+.checkbox-field label {
+  color: var(--color-navy);
+  font-weight: 800;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 10px;
+  padding: 0.85rem 0.95rem;
+  background: var(--color-white);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--color-blue-bright);
+  box-shadow: 0 0 0 4px rgba(0, 115, 230, 0.12);
+  outline: 0;
+}
+
+.field-error {
+  margin: 0;
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.form-status {
+  margin: 0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-weight: 800;
+}
+
+.form-status.success {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.form-status.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checkbox-field input {
+  margin-top: 0.25rem;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+}

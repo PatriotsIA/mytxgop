@@ -1,0 +1,85 @@
+.calendar {
+  display: grid;
+  gap: 14px;
+}
+
+.calendar-empty,
+.calendar-error {
+  padding: 22px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.calendar-error {
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.month-divider {
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #cfc7ba;
+  color: #273142;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.event-card {
+  display: grid;
+  gap: 8px;
+  min-height: 98px;
+  padding: 16px 18px;
+  background: var(--color-white);
+  border: 1px solid #ded8cf;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.event-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.09);
+}
+
+.event-card h4 {
+  margin-bottom: 0;
+  color: var(--color-navy);
+  font-size: 0.86rem;
+}
+
+.event-card p {
+  margin-bottom: 0;
+  color: var(--color-gray-600);
+  font-size: 0.7rem;
+}
+
+.event-card .button {
+  justify-self: center;
+  min-height: 28px;
+  padding: 0.42rem 0.75rem;
+  background: var(--color-blue);
+  font-size: 0.62rem;
+}
+
+.calendar-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.calendar-pagination .button {
+  min-height: 28px;
+  padding: 0.38rem 0.7rem;
+  border-radius: 3px;
+  font-size: 0.62rem;
+}
+
+@media (max-width: 640px) {
+  .calendar-pagination {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

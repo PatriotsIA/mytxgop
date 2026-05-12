@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title">
+  <title id="title">Texas county patriotic placeholder</title>
+  <rect width="900" height="620" rx="36" fill="#0b1f3a"/>
+  <path d="M0 410h900v210H0z" fill="#b22234"/>
+  <path d="M0 0h310v620H0z" fill="#005bb5"/>
+  <path d="m154 174 31 95h100l-81 59 31 95-81-59-81 59 31-95-81-59h100z" fill="#fff"/>
+  <path d="M372 150h390" stroke="#fff" stroke-width="26" stroke-linecap="round" opacity=".88"/>
+  <path d="M372 242h320" stroke="#fff" stroke-width="26" stroke-linecap="round" opacity=".88"/>
+  <path d="M372 334h420" stroke="#fff" stroke-width="26" stroke-linecap="round" opacity=".88"/>
+  <circle cx="738" cy="480" r="58" fill="#f7f4ef" opacity=".9"/>
+</svg>

@@ -1,0 +1,156 @@
+import tracyRoper from "../../assets/01-TracyRoper-Chair-323.jpg";
+import ethanLibby from "../../assets/02-Ethan-Libby-Chair-325.jpg";
+import kathleenOrtega from "../../assets/03-Kathleen-Ortega-Chair-124-1536x2048-1.jpg";
+import samBrown from "../../assets/05-Sam-Brown-Silverman-Chair-422-1758x2048-1.jpg";
+import alexCasias from "../../assets/07-Alex-Casias-Jr-Chair-224.jpg";
+import tomWarren from "../../assets/09-Thomas-Warren-Chair-123.jpg";
+import samanthaUsnick from "../../assets/10SamanthaUsnic.jpg";
+import mickeyMcCurdy from "../../assets/11-Mickey-McCurdy-Chair-324.jpg";
+import maryDammann from "../../assets/12-Mary-Dammann-Captain-323-.jpg";
+import glenndaCook from "../../assets/13-Glennda-Cook-Captain-323-1.jpg";
+import zachariahHarvey from "../../assets/14-Zack-Harvey1606x2048.jpg";
+import texasFlag from "../../assets/Texas-Flag.jpg";
+import { getCountyCalendarFeedUrl } from "./calendarFeeds";
+import type { CountySite } from "./countyTypes";
+
+export const potterCounty: CountySite = {
+  name: "Potter",
+  slug: "potter",
+  displayName: "Potter County",
+  partyName: "Potter County GOP",
+  primaryCity: "Amarillo",
+  phone: "806.351.0884",
+  email: "info@mytexasgop.com",
+  isCustom: true,
+  emailSettings: {
+    contactToEmail: "info@mytexasgop.com",
+    eventSubmissionToEmail: "info@mytexasgop.com",
+  },
+  hero: {
+    eyebrow: "Meet Your Neighbors",
+    title: "potter county GOP",
+    subtitle:
+      "Empowering our community to stand for conservative values, strengthen local leadership, and make a difference right here at home.",
+    imageAlt: "Texas flag and county community placeholder",
+  },
+  intro: {
+    heading: "operation show up",
+    body: "Welcome to your County Republican Party--where local voices matter and community leadership begins. This is your home base for staying informed, getting involved, and making a real impact right here where you live. Together, we are working to uphold our values, support strong leadership, and ensure a brighter future for our county, our state, and our nation. We invite you to connect, participate, and stand with us--because real change starts at the local level.",
+  },
+  calendar: {
+    icsUrl: getCountyCalendarFeedUrl("potter"),
+    proxyUrl: "/api/calendar?county=potter",
+    submitEventUrl: "/potter/submit-event",
+    useInternalSubmitEventForm: true,
+  },
+  links: {
+    donateUrl: "https://secure.anedot.com/patriots-for-action/donate",
+    communityUrl: "https://community.patriotsinaction.com/",
+    submitEventUrl: "/potter/submit-event",
+    precinctMap: "https://www.pottercountytexasvotes.gov/",
+    votingLocations: "https://www.pottercountytexasvotes.gov/",
+    earlyVotingLocations: "https://www.pottercountytexasvotes.gov/",
+    electionDayVotingLocations: "https://www.pottercountytexasvotes.gov/",
+    registerToVote: "https://www.texas.gov/living-in-texas/texas-voter-registration/",
+    electedOfficialsLocal: "https://www.co.potter.tx.us/",
+    electedOfficialsState: "https://wrm.capitol.texas.gov/",
+    electedOfficialsFederal: "https://wrm.capitol.texas.gov/",
+    merch: "https://shop.patriotsinaction.com/",
+    partnerWithUs: "https://patriotsinaction.com/",
+    patriotRewards: "https://patriotsinaction.com/",
+    weather: "/potter/weather",
+    localNews: "/potter/local-news",
+    nationalNews: "/potter/national-news",
+  },
+  leadership: [
+    {
+      name: "Daniel L. Rogers",
+      role: "County Chairman",
+      imageUrl: texasFlag,
+      bio: "Daniel L. Rogers was appointed Chairman of the Potter County Republican Party in July 2018. With extensive experience as a businessman, cattleman, licensed water and sewer operator, real estate investor, real estate broker, property manager, brush site operator and recycler, problem solver, and property tax consultant, Rogers brings a unique perspective to his role. Recognizing the need for better voter engagement, Rogers swiftly developed a platform to connect conservative Republicans across the country in a cost-efficient and practical way. His strategy focused on informing, educating, and inviting voters to events, helping Potter County shift from a traditional 50/50 Democrat-Republican split to a 28/72 Republican majority in the 2018 election. Locally, Rogers has recruited precinct chairs who share his vision of voter engagement and empowerment, prioritizing voters' interests over those of elected officials.",
+    },
+    {
+      name: "Ethan Libby",
+      role: "Chair",
+      precinct: "324",
+      imageUrl: ethanLibby,
+      bio: "Ethan Libby was raised in a military family and grew up loving both travel and his country. He graduated from the University of Louisville with a degree in Political Science and Chinese language, studied in China, and later represented the United States in Taiwan on a Fulbright grant. Ethan studied at the Texas A&M University School of Law, founded the Bitcoin Law Student Association, and began his legal career as a criminal prosecutor for the State of Texas. He is currently employed at the Panhandle Area Public Defender's Office.",
+    },
+    {
+      name: "Kathleen Ortega",
+      role: "Chair",
+      precinct: "124",
+      imageUrl: kathleenOrtega,
+      bio: "Kathleen Ortega became Precinct 124 Chair in 2024. Kathleen has been a conservative Republican since she voted in her first election at age 18 in 1977. Originally from California, she spent more than 34 years as a Workers' Compensation attorney and Presiding Judge. Kathleen and her husband Rick moved to Amarillo in 2021, and she now supports the Amarillo Potter County GOP as a Precinct Chair and Secretary.",
+    },
+    {
+      name: "Alex Casias Jr.",
+      role: "Chair",
+      precinct: "224",
+      imageUrl: alexCasias,
+      bio: "Alex Casias Jr. is Precinct 224 Chairman and chairs the Young Conservatives of Texas at West Texas A&M. Born in Hereford and raised in Amarillo, Alex entered politics during his senior year of high school and is focused on educating young voters on conservative principles and patriotism.",
+    },
+    {
+      name: "Tracy Roper",
+      role: "Chair",
+      precinct: "323",
+      imageUrl: tracyRoper,
+      bio: "Tracy Roper is the GOP Precinct 323 Chair in Potter County. She lives north of Amarillo in the Rolling Hills Community. After moving to Amarillo in 2014, she immediately became a community advocate through the Rolling Hills Community Association and later served as president of that organization.",
+    },
+    {
+      name: "Sam Brown Silverman",
+      role: "Chair",
+      precinct: "422",
+      imageUrl: samBrown,
+      bio: "Sam Brown Silverman is a native of Amarillo, a graduate of Amarillo High School and West Texas A&M University, and a local attorney who has practiced in the community for nearly 33 years.",
+    },
+    {
+      name: "Tom Warren",
+      role: "Chair",
+      precinct: "123",
+      imageUrl: tomWarren,
+      bio: "Tom Warren is an Amarillo business owner with more than 25 years of experience leading nonprofit organizations. A lifelong resident of Amarillo, Tom represents Precinct 123 on the Potter County Executive Committee and has served on the state platform committee for the Republican Party of Texas Convention.",
+    },
+    {
+      name: "Martha Sell",
+      role: "Chair",
+      precinct: "125",
+      bio: "Martha Sell is a retired teacher who taught English in Christian schools and ESL for Amarillo College. She is a member of Trinity Fellowship Church and currently teaches ESL at Bethesda Outreach Center. Martha's goal for Precinct 125 is to develop an effective precinct organization that helps conservative citizens see their values reflected in local government.",
+    },
+    {
+      name: "Samantha Usnick",
+      role: "Chair",
+      precinct: "321",
+      imageUrl: samanthaUsnick,
+      bio: "Samantha Usnick has been a resident of Potter County Precinct 321 for 30 years. She retired from public education after a 30-year teaching career and now works elections for Potter County, serving as an election judge at the Northwest Library. Samantha hopes to cultivate civic engagement in Precinct 321.",
+    },
+    {
+      name: "Mary Dammann",
+      role: "Precinct Captain",
+      precinct: "323",
+      imageUrl: maryDammann,
+      bio: "Mary Dammann is a small business owner who relocated to Texas in 2022. She raised two children while running a small business and a home-based daycare program, and she looks forward to serving the community through the Amarillo GOP as a concerned citizen and volunteer.",
+    },
+    {
+      name: "Glennda Cook",
+      role: "Precinct Captain",
+      precinct: "323",
+      imageUrl: glenndaCook,
+      bio: "Glennda Cook has been involved in politics throughout her life, from helping local campaigns to working elections, poll watching, and supporting candidates. She believes every office matters and that citizens have the greatest local impact when they learn about candidates and stay involved beyond voting.",
+    },
+    {
+      name: "Mickey McCurdy",
+      role: "Chair",
+      precinct: "324",
+      imageUrl: mickeyMcCurdy,
+      bio: "Mickey McCurdy was born and raised in Amarillo and has lived most of his life in Potter County. A retired mechanical contractor and former River Road ISD trustee, Mickey currently serves as an Election Judge for Potter County and looks forward to serving Precinct 324.",
+    },
+    {
+      name: "Zachariah Harvey",
+      role: "Chair",
+      precinct: "327",
+      imageUrl: zachariahHarvey,
+      bio: "Zachariah Harvey is a longtime Amarillo resident, husband, father, college student, and bookkeeper in the Potter County Tax Office. He has volunteered for conservative candidates and written in support of conservative causes. His focus is engaging younger voters and promoting transparency in government.",
+    },
+  ],
+};

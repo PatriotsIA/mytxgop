@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 432" role="img" aria-labelledby="title">
+  <title id="title">Texas flag placeholder</title>
+  <rect width="720" height="432" fill="#fff"/>
+  <rect y="216" width="720" height="216" fill="#b22234"/>
+  <rect width="240" height="432" fill="#005bb5"/>
+  <path d="m120 104 24 73h77l-62 45 24 73-63-45-62 45 24-73-62-45h77z" fill="#fff"/>
+</svg>
