@@ -1,5 +1,6 @@
 import type { CountySite } from "../data/countyTypes";
 import { getElectedOfficialsUrl } from "../lib/links";
+import { countyPagePath } from "../lib/paths";
 import { Button } from "./Button";
 
 export function CountyHero({ county }: { county: CountySite }) {
@@ -12,7 +13,7 @@ export function CountyHero({ county }: { county: CountySite }) {
           <p>{county.hero.subtitle}</p>
           <div className="button-row">
             <Button href={getElectedOfficialsUrl(county)}>Elected Officials</Button>
-            <Button to={`/${county.slug}/about`} variant="secondary">GOP Leadership</Button>
+            <Button to={countyPagePath(county, "about")} variant="secondary">GOP Leadership</Button>
           </div>
         </div>
       </div>

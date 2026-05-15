@@ -259,12 +259,17 @@ export const countyCalendarFeedsBySlug = {
 
 export type CountyCalendarSlug = keyof typeof countyCalendarFeedsBySlug;
 
-export function getCountyCalendarFeedUrl(slug: string) {
+export function getCountyCalendarFeedUrl(stateSlugOrCountySlug: string, countySlug?: string) {
+  const slug = countySlug || stateSlugOrCountySlug;
+  if (countySlug && stateSlugOrCountySlug !== "texas" && stateSlugOrCountySlug !== "tx") {
+    return undefined;
+  }
+
   return countyCalendarFeedsBySlug[slug as CountyCalendarSlug];
 }
 
 export function getCountyCalendarUrls(county: CountySite) {
   const configuredUrls = [...(county.calendar.icsUrls || []), county.calendar.icsUrl].filter(Boolean) as string[];
-  const mappedUrl = getCountyCalendarFeedUrl(county.slug);
+  const mappedUrl = getCountyCalendarFeedUrl(county.state.slug, county.slug);
   return [...new Set([...configuredUrls, mappedUrl].filter(Boolean))] as string[];
 }

@@ -2,19 +2,22 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { SubmitEventForm } from "../components/SubmitEventForm";
+import { countyPagePath } from "../lib/paths";
 import { setPageSeo } from "../lib/seo";
-import { useCounty } from "./useCounty";
+import { useCanonicalCountyPath, useCounty } from "./useCounty";
 
 export default function CountySubmitEvent() {
   const county = useCounty();
+  const redirectTo = useCanonicalCountyPath("submit-event");
 
   useEffect(() => {
     if (county) {
-      setPageSeo(`Submit an Event | ${county.partyName}`, `Submit a local event for ${county.displayName}.`, `/${county.slug}/submit-event`);
+      setPageSeo(`Submit an Event | ${county.partyName}`, `Submit a local event for ${county.displayName}.`, countyPagePath(county, "submit-event"));
     }
   }, [county]);
 
   if (!county) return <Navigate to="/not-found" replace />;
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <Layout county={county}>

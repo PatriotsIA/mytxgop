@@ -6,9 +6,17 @@ export type LeadershipMember = {
   bio?: string;
 };
 
+export type StateSite = {
+  name: string;
+  abbr: string;
+  slug: string;
+};
+
 export type CountySite = {
   name: string;
   slug: string;
+  state: StateSite;
+  fips: string;
   displayName: string;
   partyName: string;
   primaryCity?: string;

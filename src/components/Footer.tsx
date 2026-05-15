@@ -3,6 +3,7 @@ import logo from "../../assets/MyGOPMasterLOGOColor.png";
 import piaLogo from "../../assets/PIAlogo2.png";
 import piaTextLogo from "../../assets/PIAFooterLogo.png";
 import type { CountySite } from "../data/countyTypes";
+import { countyPagePath } from "../lib/paths";
 
 export function Footer({ county }: { county: CountySite }) {
   return (
@@ -27,10 +28,10 @@ export function Footer({ county }: { county: CountySite }) {
         </section>
         <section>
           <h2>More About Us</h2>
-          <Link to={`/${county.slug}/about`}>Leadership</Link>
+          <Link to={countyPagePath(county, "about")}>Leadership</Link>
           <a href={county.links.merch} target="_blank" rel="noreferrer">Merch Store</a>
           <a href={county.links.communityUrl} target="_blank" rel="noreferrer">Join Our Interactive Community</a>
-          <Link to={`/${county.slug}/contact-us`}>Contact Us</Link>
+          <Link to={countyPagePath(county, "contact-us")}>Contact Us</Link>
         </section>
         <section className="footer-cta">
           <img className="pia-patriot" src={piaLogo} alt="" loading="lazy" />

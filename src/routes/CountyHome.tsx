@@ -8,19 +8,22 @@ import { OperationShowUp } from "../components/OperationShowUp";
 import { VoterActionGrid } from "../components/VoterActionGrid";
 import { Button } from "../components/Button";
 import { getSubmitEventUrl } from "../lib/links";
+import { countyPath } from "../lib/paths";
 import { setPageSeo } from "../lib/seo";
-import { useCounty } from "./useCounty";
+import { useCanonicalCountyPath, useCounty } from "./useCounty";
 
 export default function CountyHome() {
   const county = useCounty();
+  const redirectTo = useCanonicalCountyPath();
 
   useEffect(() => {
     if (county) {
-      setPageSeo(`${county.partyName} | My Texas GOP`, county.hero.subtitle, `/${county.slug}`);
+      setPageSeo(`${county.partyName} | My Texas GOP`, county.hero.subtitle, countyPath(county));
     }
   }, [county]);
 
   if (!county) return <Navigate to="/not-found" replace />;
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <Layout county={county}>

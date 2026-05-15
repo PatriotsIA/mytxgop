@@ -1,4 +1,5 @@
 import type { CountySite } from "../data/countyTypes";
+import { countyPagePath } from "../lib/paths";
 import { Card } from "./Card";
 
 export function LeadershipGrid({ county }: { county: CountySite }) {
@@ -21,7 +22,7 @@ export function LeadershipGrid({ county }: { county: CountySite }) {
             <div className="leader-socials" aria-label={`${chairman.name} social links`}>
               <a href={`mailto:${county.email || "info@mytexasgop.com"}`} aria-label="Email">E</a>
               <a href={county.links.communityUrl} target="_blank" rel="noreferrer" aria-label="Community">C</a>
-              <a href={`/${county.slug}/contact-us`} aria-label="Contact">T</a>
+              <a href={countyPagePath(county, "contact-us")} aria-label="Contact">T</a>
             </div>
           </div>
         </div>

@@ -4,19 +4,22 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { ContactForm } from "../components/ContactForm";
 import { Layout } from "../components/Layout";
+import { countyPagePath } from "../lib/paths";
 import { setPageSeo } from "../lib/seo";
-import { useCounty } from "./useCounty";
+import { useCanonicalCountyPath, useCounty } from "./useCounty";
 
 export default function CountyContact() {
   const county = useCounty();
+  const redirectTo = useCanonicalCountyPath("contact-us");
 
   useEffect(() => {
     if (county) {
-      setPageSeo(`Contact ${county.partyName}`, `Contact ${county.partyName} by phone, email, or secure web form.`, `/${county.slug}/contact-us`);
+      setPageSeo(`Contact ${county.partyName}`, `Contact ${county.partyName} by phone, email, or secure web form.`, countyPagePath(county, "contact-us"));
     }
   }, [county]);
 
   if (!county) return <Navigate to="/not-found" replace />;
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   const email = county.email || county.emailSettings?.contactToEmail || "info@mytexasgop.com";
 

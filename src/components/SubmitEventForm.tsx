@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CountySite } from "../data/countyTypes";
 import { sendEventSubmissionEmail } from "../lib/email";
 import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "../lib/validation";
@@ -32,6 +32,13 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
   const [sending, setSending] = useState(false);
   const [cooldownUntil, setCooldownUntil] = useState(0);
 
+  useEffect(() => {
+    if (!cooldownUntil) return;
+
+    const timeoutId = window.setTimeout(() => setCooldownUntil(0), Math.max(0, cooldownUntil - Date.now()));
+    return () => window.clearTimeout(timeoutId);
+  }, [cooldownUntil]);
+
   const update = (key: keyof typeof form) => (value: string | boolean) => setForm((current) => ({ ...current, [key]: value }));
 
   const validate = () => {
@@ -48,7 +55,7 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (form.website || Date.now() < cooldownUntil || !validate()) return;
+    if (form.website || cooldownUntil > 0 || !validate()) return;
 
     setSending(true);
     setStatus(undefined);
@@ -109,7 +116,7 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
       </div>
       {errors.consent ? <p className="field-error" id="consent-error">{errors.consent}</p> : null}
       <FormStatus status={status} />
-      <Button type="submit" disabled={sending || Date.now() < cooldownUntil}>{sending ? "Sending..." : "Submit Event"}</Button>
+      <Button type="submit" disabled={sending || cooldownUntil > 0}>{sending ? "Sending..." : "Submit Event"}</Button>
     </form>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
+import { countyPagePath } from "../lib/paths";
 
 export function MobileNav({ county }: { county: CountySite }) {
   const [open, setOpen] = useState(false);
@@ -18,12 +19,12 @@ export function MobileNav({ county }: { county: CountySite }) {
       </button>
       {open ? (
         <nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-menu">
-          <Link to={`/${county.slug}/about`}>About / Leadership</Link>
-          <Link to={`/${county.slug}/contact-us`}>Contact Us</Link>
-          <Link to={`/${county.slug}/submit-event`}>Submit Event</Link>
-          <Link to={`/${county.slug}/weather`}>Weather</Link>
-          <Link to={`/${county.slug}/local-news`}>Local News</Link>
-          <Link to={`/${county.slug}/national-news`}>National News</Link>
+          <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
+          <Link to={countyPagePath(county, "contact-us")}>Contact Us</Link>
+          <Link to={countyPagePath(county, "submit-event")}>Submit Event</Link>
+          <Link to={countyPagePath(county, "weather")}>Weather</Link>
+          <Link to={countyPagePath(county, "local-news")}>Local News</Link>
+          <Link to={countyPagePath(county, "national-news")}>National News</Link>
           <a href={county.links.precinctMap}>Precinct Map</a>
           <a href={county.links.votingLocations}>Voting Locations</a>
           <a href={county.links.registerToVote}>Register to Vote</a>

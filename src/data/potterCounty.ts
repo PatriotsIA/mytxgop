@@ -13,7 +13,7 @@ import texasFlag from "../../assets/Texas-Flag.jpg";
 import { getCountyCalendarFeedUrl } from "./calendarFeeds";
 import type { CountySite } from "./countyTypes";
 
-export const potterCounty: CountySite = {
+export const potterCounty: Partial<CountySite> = {
   name: "Potter",
   slug: "potter",
   displayName: "Potter County",
@@ -38,15 +38,15 @@ export const potterCounty: CountySite = {
     body: "Welcome to your County Republican Party--where local voices matter and community leadership begins. This is your home base for staying informed, getting involved, and making a real impact right here where you live. Together, we are working to uphold our values, support strong leadership, and ensure a brighter future for our county, our state, and our nation. We invite you to connect, participate, and stand with us--because real change starts at the local level.",
   },
   calendar: {
-    icsUrl: getCountyCalendarFeedUrl("potter"),
-    proxyUrl: "/api/calendar?county=potter",
-    submitEventUrl: "/potter/submit-event",
+    icsUrl: getCountyCalendarFeedUrl("texas", "potter"),
+    proxyUrl: "/api/calendar?state=texas&county=potter",
+    submitEventUrl: "/tx/potter/submit-event",
     useInternalSubmitEventForm: true,
   },
   links: {
     donateUrl: "https://secure.anedot.com/patriots-for-action/donate",
     communityUrl: "https://community.patriotsinaction.com/",
-    submitEventUrl: "/potter/submit-event",
+    submitEventUrl: "/tx/potter/submit-event",
     precinctMap: "https://www.pottercountytexasvotes.gov/",
     votingLocations: "https://www.pottercountytexasvotes.gov/",
     earlyVotingLocations: "https://www.pottercountytexasvotes.gov/",
@@ -58,9 +58,9 @@ export const potterCounty: CountySite = {
     merch: "https://shop.patriotsinaction.com/",
     partnerWithUs: "https://patriotsinaction.com/",
     patriotRewards: "https://patriotsinaction.com/",
-    weather: "/potter/weather",
-    localNews: "/potter/local-news",
-    nationalNews: "/potter/national-news",
+    weather: "/tx/potter/weather",
+    localNews: "/tx/potter/local-news",
+    nationalNews: "/tx/potter/national-news",
   },
   leadership: [
     {

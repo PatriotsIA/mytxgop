@@ -3,19 +3,22 @@ import { Navigate } from "react-router-dom";
 import { Card } from "../components/Card";
 import { Layout } from "../components/Layout";
 import { WeatherChip } from "../components/WeatherChip";
+import { countyPagePath } from "../lib/paths";
 import { setPageSeo } from "../lib/seo";
-import { useCounty } from "./useCounty";
+import { useCanonicalCountyPath, useCounty } from "./useCounty";
 
 export default function CountyWeather() {
   const county = useCounty();
+  const redirectTo = useCanonicalCountyPath("weather");
 
   useEffect(() => {
     if (county) {
-      setPageSeo(`Weather | ${county.displayName}`, `Weather placeholder for ${county.displayName}.`, `/${county.slug}/weather`);
+      setPageSeo(`Weather | ${county.displayName}`, `Weather placeholder for ${county.displayName}.`, countyPagePath(county, "weather"));
     }
   }, [county]);
 
   if (!county) return <Navigate to="/not-found" replace />;
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <Layout county={county}>

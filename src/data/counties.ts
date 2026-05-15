@@ -1,21 +1,101 @@
+import { getCountyByState } from "@nickgraffis/us-counties";
 import { createDefaultCountySite } from "./defaultCountyFactory";
 import { potterCounty } from "./potterCounty";
-import type { CountySite } from "./countyTypes";
+import type { CountySite, StateSite } from "./countyTypes";
 
-export const texasCountyNames = [
-  "Anderson", "Andrews", "Angelina", "Aransas", "Archer", "Armstrong", "Atascosa", "Austin", "Bailey", "Bandera", "Bastrop", "Baylor", "Bee", "Bell", "Bexar", "Blanco", "Borden", "Bosque", "Bowie", "Brazoria", "Brazos", "Brewster", "Briscoe", "Brooks", "Brown", "Burleson", "Burnet", "Caldwell", "Calhoun", "Callahan", "Cameron", "Camp", "Carson", "Cass", "Castro", "Chambers", "Cherokee", "Childress", "Clay", "Cochran", "Coke", "Coleman", "Collin", "Collingsworth", "Colorado", "Comal", "Comanche", "Concho", "Cooke", "Coryell", "Cottle", "Crane", "Crockett", "Crosby", "Culberson", "Dallam", "Dallas", "Dawson", "Deaf Smith", "Delta", "Denton", "DeWitt", "Dickens", "Dimmit", "Donley", "Duval", "Eastland", "Ector", "Edwards", "Ellis", "El Paso", "Erath", "Falls", "Fannin", "Fayette", "Fisher", "Floyd", "Foard", "Fort Bend", "Franklin", "Freestone", "Frio", "Gaines", "Galveston", "Garza", "Gillespie", "Glasscock", "Goliad", "Gonzales", "Gray", "Grayson", "Gregg", "Grimes", "Guadalupe", "Hale", "Hall", "Hamilton", "Hansford", "Hardeman", "Hardin", "Harris", "Harrison", "Hartley", "Haskell", "Hays", "Hemphill", "Henderson", "Hidalgo", "Hill", "Hockley", "Hood", "Hopkins", "Houston", "Howard", "Hudspeth", "Hunt", "Hutchinson", "Irion", "Jack", "Jackson", "Jasper", "Jeff Davis", "Jefferson", "Jim Hogg", "Jim Wells", "Johnson", "Jones", "Karnes", "Kaufman", "Kendall", "Kenedy", "Kent", "Kerr", "Kimble", "King", "Kinney", "Kleberg", "Knox", "Lamar", "Lamb", "Lampasas", "La Salle", "Lavaca", "Lee", "Leon", "Liberty", "Limestone", "Lipscomb", "Live Oak", "Llano", "Loving", "Lubbock", "Lynn", "Madison", "Marion", "Martin", "Mason", "Matagorda", "Maverick", "McCulloch", "McLennan", "McMullen", "Medina", "Menard", "Midland", "Milam", "Mills", "Mitchell", "Montague", "Montgomery", "Moore", "Morris", "Motley", "Nacogdoches", "Navarro", "Newton", "Nolan", "Nueces", "Ochiltree", "Oldham", "Orange", "Palo Pinto", "Panola", "Parker", "Parmer", "Pecos", "Polk", "Potter", "Presidio", "Rains", "Randall", "Reagan", "Real", "Red River", "Reeves", "Refugio", "Roberts", "Robertson", "Rockwall", "Runnels", "Rusk", "Sabine", "San Augustine", "San Jacinto", "San Patricio", "San Saba", "Schleicher", "Scurry", "Shackelford", "Shelby", "Sherman", "Smith", "Somervell", "Starr", "Stephens", "Sterling", "Stonewall", "Sutton", "Swisher", "Tarrant", "Taylor", "Terrell", "Terry", "Throckmorton", "Titus", "Tom Green", "Travis", "Trinity", "Tyler", "Upshur", "Upton", "Uvalde", "Val Verde", "Van Zandt", "Victoria", "Walker", "Waller", "Ward", "Washington", "Webb", "Wharton", "Wheeler", "Wichita", "Wilbarger", "Willacy", "Williamson", "Wilson", "Winkler", "Wise", "Wood", "Yoakum", "Young", "Zapata", "Zavala",
-] as const;
-
-const countyOverrides: Record<string, CountySite> = {
-  potter: potterCounty,
+type UsCounty = {
+  FIPS: string;
+  name: string;
+  state: string;
 };
 
-export const counties: CountySite[] = texasCountyNames.map((name) => {
-  const county = createDefaultCountySite(name);
-  return countyOverrides[county.slug] || county;
-});
+export const states: StateSite[] = [
+  { name: "Alabama", abbr: "AL", slug: "alabama" },
+  { name: "Alaska", abbr: "AK", slug: "alaska" },
+  { name: "Arizona", abbr: "AZ", slug: "arizona" },
+  { name: "Arkansas", abbr: "AR", slug: "arkansas" },
+  { name: "California", abbr: "CA", slug: "california" },
+  { name: "Colorado", abbr: "CO", slug: "colorado" },
+  { name: "Connecticut", abbr: "CT", slug: "connecticut" },
+  { name: "Delaware", abbr: "DE", slug: "delaware" },
+  { name: "District of Columbia", abbr: "DC", slug: "district-of-columbia" },
+  { name: "Florida", abbr: "FL", slug: "florida" },
+  { name: "Georgia", abbr: "GA", slug: "georgia" },
+  { name: "Hawaii", abbr: "HI", slug: "hawaii" },
+  { name: "Idaho", abbr: "ID", slug: "idaho" },
+  { name: "Illinois", abbr: "IL", slug: "illinois" },
+  { name: "Indiana", abbr: "IN", slug: "indiana" },
+  { name: "Iowa", abbr: "IA", slug: "iowa" },
+  { name: "Kansas", abbr: "KS", slug: "kansas" },
+  { name: "Kentucky", abbr: "KY", slug: "kentucky" },
+  { name: "Louisiana", abbr: "LA", slug: "louisiana" },
+  { name: "Maine", abbr: "ME", slug: "maine" },
+  { name: "Maryland", abbr: "MD", slug: "maryland" },
+  { name: "Massachusetts", abbr: "MA", slug: "massachusetts" },
+  { name: "Michigan", abbr: "MI", slug: "michigan" },
+  { name: "Minnesota", abbr: "MN", slug: "minnesota" },
+  { name: "Mississippi", abbr: "MS", slug: "mississippi" },
+  { name: "Missouri", abbr: "MO", slug: "missouri" },
+  { name: "Montana", abbr: "MT", slug: "montana" },
+  { name: "Nebraska", abbr: "NE", slug: "nebraska" },
+  { name: "Nevada", abbr: "NV", slug: "nevada" },
+  { name: "New Hampshire", abbr: "NH", slug: "new-hampshire" },
+  { name: "New Jersey", abbr: "NJ", slug: "new-jersey" },
+  { name: "New Mexico", abbr: "NM", slug: "new-mexico" },
+  { name: "New York", abbr: "NY", slug: "new-york" },
+  { name: "North Carolina", abbr: "NC", slug: "north-carolina" },
+  { name: "North Dakota", abbr: "ND", slug: "north-dakota" },
+  { name: "Ohio", abbr: "OH", slug: "ohio" },
+  { name: "Oklahoma", abbr: "OK", slug: "oklahoma" },
+  { name: "Oregon", abbr: "OR", slug: "oregon" },
+  { name: "Pennsylvania", abbr: "PA", slug: "pennsylvania" },
+  { name: "Rhode Island", abbr: "RI", slug: "rhode-island" },
+  { name: "South Carolina", abbr: "SC", slug: "south-carolina" },
+  { name: "South Dakota", abbr: "SD", slug: "south-dakota" },
+  { name: "Tennessee", abbr: "TN", slug: "tennessee" },
+  { name: "Texas", abbr: "TX", slug: "texas" },
+  { name: "Utah", abbr: "UT", slug: "utah" },
+  { name: "Vermont", abbr: "VT", slug: "vermont" },
+  { name: "Virginia", abbr: "VA", slug: "virginia" },
+  { name: "Washington", abbr: "WA", slug: "washington" },
+  { name: "West Virginia", abbr: "WV", slug: "west-virginia" },
+  { name: "Wisconsin", abbr: "WI", slug: "wisconsin" },
+  { name: "Wyoming", abbr: "WY", slug: "wyoming" },
+];
 
-export const countiesBySlug = new Map(counties.map((county) => [county.slug, county]));
+const statesBySlug = new Map(states.map((state) => [state.slug, state]));
+const statesByAbbr = new Map(states.map((state) => [state.abbr, state]));
+const statesByAbbrSlug = new Map(states.map((state) => [state.abbr.toLowerCase(), state]));
+
+const countyOverrides: Record<string, Partial<CountySite>> = {
+  "texas/potter": potterCounty,
+};
+
+function withOverrides(county: CountySite): CountySite {
+  const override = countyOverrides[`${county.state.slug}/${county.slug}`];
+  if (!override) return county;
+
+  return {
+    ...county,
+    ...override,
+    state: county.state,
+    fips: county.fips,
+    calendar: { ...county.calendar, ...override.calendar },
+    links: { ...county.links, ...override.links },
+    emailSettings: { ...county.emailSettings, ...override.emailSettings },
+  };
+}
+
+export const counties: CountySite[] = states.flatMap((state) =>
+  (getCountyByState(state.name) as UsCounty[]).map((county) =>
+    withOverrides(createDefaultCountySite(county.name, state, county.FIPS)),
+  ),
+);
+
+export const countiesBySlug = new Map(
+  counties.filter((county) => county.state.slug === "texas").map((county) => [county.slug, county]),
+);
+export const countiesByStateAndSlug = new Map(counties.map((county) => [`${county.state.slug}/${county.slug}`, county]));
 
 export function getCountyBySlug(slug?: string) {
   if (!slug) {
@@ -23,4 +103,27 @@ export function getCountyBySlug(slug?: string) {
   }
 
   return countiesBySlug.get(slug.toLowerCase());
+}
+
+export function getStateBySlug(slug?: string) {
+  if (!slug) return undefined;
+  const normalized = slug.toLowerCase();
+  return statesBySlug.get(normalized) || statesByAbbrSlug.get(normalized);
+}
+
+export function getCounty(stateSlug?: string, countySlug?: string) {
+  if (!stateSlug || !countySlug) return undefined;
+  const state = getStateBySlug(stateSlug);
+  if (!state) return undefined;
+  return countiesByStateAndSlug.get(`${state.slug}/${countySlug.toLowerCase()}`);
+}
+
+export function getCountiesForState(stateSlug?: string) {
+  const state = getStateBySlug(stateSlug);
+  if (!state) return [];
+  return counties.filter((county) => county.state.slug === state.slug);
+}
+
+export function stateFromAbbr(abbr: string) {
+  return statesByAbbr.get(abbr);
 }

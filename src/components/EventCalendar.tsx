@@ -103,14 +103,13 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
     return <div className="calendar-empty">No upcoming events are listed yet.</div>;
   }
 
-  let lastMonth = "";
-
   return (
     <div className="calendar">
-      {visibleEvents.map((event) => {
+      {visibleEvents.map((event, index) => {
         const month = event.start.toLocaleDateString(undefined, { month: "long", year: "numeric" });
-        const showMonth = month !== lastMonth;
-        lastMonth = month;
+        const previousEvent = visibleEvents[index - 1];
+        const previousMonth = previousEvent?.start.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+        const showMonth = month !== previousMonth;
 
         return (
           <div key={event.id}>

@@ -671,6 +671,75 @@
   padding: 0 1.25rem;
 }
 
+.state-filter {
+  background: var(--color-white);
+}
+
+.directory-section {
+  margin-bottom: 34px;
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.result-summary {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  color: var(--color-gray-600);
+  font-weight: 800;
+}
+
+.result-summary div {
+  display: grid;
+  gap: 4px;
+}
+
+.result-summary strong {
+  color: var(--color-navy);
+  font-size: 1.2rem;
+}
+
+.result-summary span {
+  font-weight: 700;
+}
+
+.text-button {
+  color: var(--color-red);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.finder-stat-card {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  width: min(100%, 360px);
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.finder-stat-card strong {
+  color: var(--color-red);
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1;
+}
+
+.finder-stat-card a {
+  color: var(--color-navy);
+  font-weight: 800;
+}
+
 .county-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -730,6 +799,7 @@
 
   .cta-grid,
   .footer-grid,
+  .state-grid,
   .county-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -764,6 +834,7 @@
 
   .cta-grid,
   .footer-grid,
+  .state-grid,
   .county-grid {
     grid-template-columns: 1fr;
   }

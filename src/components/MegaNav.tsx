@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
+import { countyPagePath, countyPath } from "../lib/paths";
 
 export function MegaNav({ county }: { county: CountySite }) {
   return (
     <nav className="desktop-nav" aria-label="Primary navigation">
-      <Link to={`/${county.slug}/about`}>About / Leadership</Link>
+      <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
       <div className="nav-group">
         <button type="button">Elections & More</button>
         <div className="mega-panel">
@@ -22,10 +23,10 @@ export function MegaNav({ county }: { county: CountySite }) {
       <div className="nav-group">
         <button type="button">News & Events</button>
         <div className="mega-panel">
-          <Link to={`/${county.slug}/weather`}>Weather</Link>
-          <Link to={`/${county.slug}/local-news`}>Local News</Link>
-          <Link to={`/${county.slug}/national-news`}>National News</Link>
-          <Link to={`/${county.slug}`}>Events</Link>
+          <Link to={countyPagePath(county, "weather")}>Weather</Link>
+          <Link to={countyPagePath(county, "local-news")}>Local News</Link>
+          <Link to={countyPagePath(county, "national-news")}>National News</Link>
+          <Link to={countyPath(county)}>Events</Link>
           <a href={county.links.communityUrl} target="_blank" rel="noreferrer">Community</a>
           <a href={county.links.obituaries}>Local Obituaries</a>
         </div>

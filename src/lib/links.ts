@@ -1,4 +1,5 @@
 import type { CountySite } from "../data/countyTypes";
+import { countyPagePath } from "./paths";
 
 export const globalLinks: CountySite["links"] = {
   donateUrl: "https://secure.anedot.com/patriots-for-action/donate",
@@ -17,10 +18,10 @@ export function isExternalUrl(url?: string) {
 
 export function getSubmitEventUrl(county: CountySite) {
   if (county.calendar.useInternalSubmitEventForm) {
-    return `/${county.slug}/submit-event`;
+    return countyPagePath(county, "submit-event");
   }
 
-  return county.calendar.submitEventUrl || county.links.submitEventUrl || `/${county.slug}/submit-event`;
+  return county.calendar.submitEventUrl || county.links.submitEventUrl || countyPagePath(county, "submit-event");
 }
 
 export function getElectedOfficialsUrl(county: CountySite) {

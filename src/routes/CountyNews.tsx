@@ -3,12 +3,13 @@ import { Navigate, useLocation } from "react-router-dom";
 import { Card } from "../components/Card";
 import { Layout } from "../components/Layout";
 import { setPageSeo } from "../lib/seo";
-import { useCounty } from "./useCounty";
+import { useCanonicalCountyPath, useCounty } from "./useCounty";
 
 export default function CountyNews() {
   const county = useCounty();
   const location = useLocation();
   const isLocal = location.pathname.endsWith("/local-news");
+  const redirectTo = useCanonicalCountyPath(isLocal ? "local-news" : "national-news");
 
   useEffect(() => {
     if (county) {
@@ -18,6 +19,7 @@ export default function CountyNews() {
   }, [county, isLocal, location.pathname]);
 
   if (!county) return <Navigate to="/not-found" replace />;
+  if (redirectTo) return <Navigate to={redirectTo} replace />;
 
   return (
     <Layout county={county}>

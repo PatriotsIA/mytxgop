@@ -22,8 +22,12 @@ function calendarApiDevMiddleware(): Plugin {
     configureServer(server) {
       server.middlewares.use("/api/calendar", async (request, response) => {
         const requestUrl = new URL(request.url || "", "http://localhost");
+        const state = requestUrl.searchParams.get("state")?.toLowerCase() || "texas";
         const county = requestUrl.searchParams.get("county")?.toLowerCase();
-        const feedUrl = county ? countyCalendarFeedsBySlug[county as CountyCalendarSlug] : undefined;
+        const feedUrl =
+          county && (state === "texas" || state === "tx")
+            ? countyCalendarFeedsBySlug[county as CountyCalendarSlug]
+            : undefined;
 
         if (!feedUrl) {
           response.statusCode = 404;
