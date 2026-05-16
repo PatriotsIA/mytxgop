@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
-import { countyPagePath, countyPath } from "../lib/paths";
+import { countyPagePath, countyPath, statePath } from "../lib/paths";
 
 export function MegaNav({ county }: { county: CountySite }) {
   return (
     <nav className="desktop-nav" aria-label="Primary navigation">
+      <Link to="/">Find Another County</Link>
+      <Link to={statePath(county.state)}>{county.state.abbr} Counties</Link>
       <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
       <div className="nav-group">
         <button type="button">Elections & More</button>

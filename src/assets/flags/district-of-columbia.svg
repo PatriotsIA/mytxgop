@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" role="img" aria-labelledby="title">
+  <title id="title">District of Columbia flag</title>
+  <rect width="300" height="200" fill="#fff"/>
+  <g fill="#d01c1f">
+    <path d="M75 37.8 80.7 50h13.5L83.1 58.2l4.1 12.9L75 63.4 62.8 71.1l4.1-12.9L55.8 50h13.5L75 37.8z"/>
+    <path d="M150 37.8 155.7 50h13.5l-11.1 8.2 4.1 12.9-12.2-7.7-12.2 7.7 4.1-12.9-11.1-8.2h13.5L150 37.8z"/>
+    <path d="M225 37.8 230.7 50h13.5l-11.1 8.2 4.1 12.9-12.2-7.7-12.2 7.7 4.1-12.9-11.1-8.2h13.5L225 37.8z"/>
+    <rect x="0" y="92" width="300" height="26"/>
+    <rect x="0" y="142" width="300" height="26"/>
+  </g>
+</svg>

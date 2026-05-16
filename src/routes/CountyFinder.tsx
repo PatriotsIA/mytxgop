@@ -2,51 +2,73 @@ import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { counties, states } from "../data/counties";
 import { countyPath, statePath } from "../lib/paths";
-import texasFlag from "../assets/placeholders/texas-flag-placeholder.svg";
+import districtOfColumbiaFlag from "../assets/flags/district-of-columbia.svg";
+
+function normalizeSearch(value: string) {
+  return value.toLowerCase().trim();
+}
+
+function matchesState(state: (typeof states)[number], query: string) {
+  if (!query) return true;
+  return [state.name, state.abbr, state.slug].some((value) => value.toLowerCase().includes(query));
+}
+
+function matchesCounty(county: (typeof counties)[number], query: string) {
+  if (!query) return true;
+  return [
+    county.displayName,
+    county.name,
+    county.slug,
+    county.state.name,
+    county.state.abbr,
+    county.primaryCity,
+    county.fips,
+  ]
+    .filter(Boolean)
+    .some((value) => value?.toLowerCase().includes(query));
+}
+
+function stateFlagUrl(abbr: string) {
+  if (abbr.toLowerCase() === "dc") {
+    return districtOfColumbiaFlag;
+  }
+
+  return `https://flagcdn.com/h80/us-${abbr.toLowerCase()}.png`;
+}
+
+function countyCountLabel(count: number) {
+  return `${count} ${count === 1 ? "county" : "counties"}`;
+}
 
 export default function CountyFinder() {
-  const [stateQuery, setStateQuery] = useState("");
-  const [countyQuery, setCountyQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [stateFilter, setStateFilter] = useState("all");
   const countyResultsRef = useRef<HTMLDivElement>(null);
+  const normalizedQuery = normalizeSearch(searchQuery);
 
   const filteredStates = useMemo(() => {
-    const normalizedQuery = stateQuery.toLowerCase().trim();
-    if (!normalizedQuery) return states;
-
-    return states.filter((state) =>
-      [state.name, state.abbr, state.slug].some((value) => value.toLowerCase().includes(normalizedQuery)),
-    );
-  }, [stateQuery]);
+    return states.filter((state) => matchesState(state, normalizedQuery));
+  }, [normalizedQuery]);
 
   const filteredCounties = useMemo(() => {
-    const normalizedQuery = countyQuery.toLowerCase().trim();
-
     return counties.filter((county) => {
       const matchesState = stateFilter === "all" || county.state.slug === stateFilter;
-      const matchesQuery =
-        !normalizedQuery ||
-        [
-          county.displayName,
-          county.name,
-          county.slug,
-          county.state.name,
-          county.state.abbr,
-          county.primaryCity,
-          county.fips,
-        ]
-          .filter(Boolean)
-          .some((value) => value?.toLowerCase().includes(normalizedQuery));
-
-      return matchesState && matchesQuery;
+      return matchesState && matchesCounty(county, normalizedQuery);
     });
-  }, [countyQuery, stateFilter]);
+  }, [normalizedQuery, stateFilter]);
 
   const selectedState = states.find((state) => state.slug === stateFilter);
-  const hasCountyCriteria = stateFilter !== "all" || countyQuery.trim().length > 0;
+  const countyCountsByState = useMemo(() => {
+    return counties.reduce<Record<string, number>>((counts, county) => {
+      counts[county.state.slug] = (counts[county.state.slug] || 0) + 1;
+      return counts;
+    }, {});
+  }, []);
+  const hasCountyCriteria = stateFilter !== "all" || normalizedQuery.length > 0;
+  const shouldShowCounties = hasCountyCriteria;
   const countyResultLabel = selectedState
     ? `${selectedState.name} county pages`
-    : countyQuery.trim()
+    : normalizedQuery
       ? "Matching county pages"
       : "County pages";
 
@@ -58,7 +80,7 @@ export default function CountyFinder() {
   }
 
   function clearCountyFilters() {
-    setCountyQuery("");
+    setSearchQuery("");
     setStateFilter("all");
   }
 
@@ -69,22 +91,14 @@ export default function CountyFinder() {
           <div>
             <p className="eyebrow">My Texas GOP</p>
             <h1>Find your state or county Republican Party</h1>
-            <p>Start with a state, or search directly for a county when you already know the name.</p>
-            <label className="search-label" htmlFor="state-search">Find a state</label>
+            <p>Search by state, abbreviation, county, city, or FIPS. Use the state filter when you want county results from one state only.</p>
+            <label className="search-label" htmlFor="directory-search">Search states and counties</label>
             <input
-              id="state-search"
+              id="directory-search"
               className="county-search"
-              value={stateQuery}
-              onChange={(event) => setStateQuery(event.target.value)}
-              placeholder="Search Texas, Florida, California..."
-            />
-            <label className="search-label" htmlFor="county-search">Find a county</label>
-            <input
-              id="county-search"
-              className="county-search"
-              value={countyQuery}
-              onChange={(event) => setCountyQuery(event.target.value)}
-              placeholder="Search Potter, El Paso, Red River..."
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search Texas, TX, Potter, El Paso..."
             />
             <label className="search-label" htmlFor="state-filter">Limit county results to a state</label>
             <select
@@ -100,8 +114,18 @@ export default function CountyFinder() {
                 </option>
               ))}
             </select>
+            {selectedState ? (
+              <p className="filter-note">
+                Filtering counties in <strong>{selectedState.name}</strong>.
+              </p>
+            ) : null}
           </div>
-          <img src={texasFlag} alt="Texas flag placeholder" />
+          <div className="finder-stat-card">
+            <strong>{states.length}</strong>
+            <span>state directories</span>
+            <strong>{counties.length}</strong>
+            <span>county pages</span>
+          </div>
         </div>
       </section>
       <section className="section">
@@ -109,16 +133,18 @@ export default function CountyFinder() {
           <div className="section-heading">
             <p className="eyebrow">States</p>
             <h2>Browse by state</h2>
-            <p>Open a state page to see all counties, or choose a state above to filter the county results on this page.</p>
+            <p>Open a state page to see every county there, or use the state filter above to keep searching on this page.</p>
           </div>
           <div className="state-grid" aria-live="polite">
             {filteredStates.map((state) => (
-              <Link key={state.slug} className="county-link-card" to={statePath(state)}>
+              <Link key={state.slug} className="county-link-card state-link-card" to={statePath(state)}>
+                <img src={stateFlagUrl(state.abbr)} alt={`${state.name} flag`} loading="lazy" />
                 <strong>{state.name}</strong>
-                <span>{state.abbr}</span>
+                <span>{state.abbr} · {countyCountLabel(countyCountsByState[state.slug] || 0)}</span>
               </Link>
             ))}
           </div>
+          {filteredStates.length === 0 ? <p className="empty-results">No states match “{searchQuery}”.</p> : null}
         </div>
         <div ref={countyResultsRef} className="container result-summary" aria-live="polite">
           <div>
@@ -126,8 +152,13 @@ export default function CountyFinder() {
             <span>
               {hasCountyCriteria
                 ? `Showing ${filteredCounties.length} ${filteredCounties.length === 1 ? "result" : "results"}`
-                : "Choose a state or enter a county name to narrow the list."}
+                : "Search for a county or choose a state to show county pages."}
             </span>
+            {selectedState ? (
+              <Link className="inline-directory-link" to={statePath(selectedState)}>
+                View {selectedState.name} page
+              </Link>
+            ) : null}
           </div>
           {hasCountyCriteria ? (
             <button type="button" className="text-button" onClick={clearCountyFilters}>
@@ -135,14 +166,15 @@ export default function CountyFinder() {
             </button>
           ) : null}
         </div>
-        {hasCountyCriteria ? (
+        {shouldShowCounties ? (
           <div className="container county-grid" aria-live="polite">
             {filteredCounties.map((county) => (
               <Link key={`${county.state.slug}-${county.slug}`} className="county-link-card" to={countyPath(county)}>
                 <strong>{county.displayName}</strong>
-                <span>{county.state.name}{county.isCustom ? " · Custom demo" : ""}</span>
+                <span>{county.state.name} {county.fips ? `· FIPS ${county.fips}` : ""}{county.isCustom ? " · Custom demo" : ""}</span>
               </Link>
             ))}
+            {filteredCounties.length === 0 ? <p className="empty-results">No counties match the current search.</p> : null}
           </div>
         ) : null}
       </section>

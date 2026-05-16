@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
-import { countyPagePath } from "../lib/paths";
+import { countyPagePath, statePath } from "../lib/paths";
 
 export function MobileNav({ county }: { county: CountySite }) {
   const [open, setOpen] = useState(false);
@@ -19,6 +19,8 @@ export function MobileNav({ county }: { county: CountySite }) {
       </button>
       {open ? (
         <nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-menu">
+          <Link to="/">Find Another County</Link>
+          <Link to={statePath(county.state)}>{county.state.name} Counties</Link>
           <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
           <Link to={countyPagePath(county, "contact-us")}>Contact Us</Link>
           <Link to={countyPagePath(county, "submit-event")}>Submit Event</Link>

@@ -675,6 +675,16 @@
   background: var(--color-white);
 }
 
+.filter-note {
+  width: fit-content;
+  margin: 14px 0 0;
+  padding: 8px 14px;
+  color: var(--color-navy);
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: 999px;
+  font-weight: 800;
+}
+
 .directory-section {
   margin-bottom: 34px;
 }
@@ -709,6 +719,11 @@
   font-weight: 700;
 }
 
+.inline-directory-link {
+  color: var(--color-red);
+  font-weight: 900;
+}
+
 .text-button {
   color: var(--color-red);
   background: transparent;
@@ -716,6 +731,11 @@
   font: inherit;
   font-weight: 900;
   cursor: pointer;
+}
+
+.empty-results {
+  color: var(--color-gray-600);
+  font-weight: 800;
 }
 
 .finder-stat-card {
@@ -761,6 +781,19 @@
 .county-link-card span {
   color: var(--color-gray-600);
   font-size: 0.9rem;
+}
+
+.state-link-card {
+  align-content: start;
+}
+
+.state-link-card img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-gray-100);
 }
 
 .contact-layout {
