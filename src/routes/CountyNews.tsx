@@ -25,8 +25,10 @@ export default function CountyNews() {
     <Layout county={county}>
       <section className="page-hero">
         <div className="container">
-          <h1>{isLocal ? "Local News" : "National News"}</h1>
-          <p>Curated news for {county.displayName} will appear here when configured.</p>
+          <div className="hero-panel">
+            <h1>{isLocal ? "Local News" : "National News"}</h1>
+            <p>Curated news for {county.displayName} will appear here when configured.</p>
+          </div>
         </div>
       </section>
       <section className="section">

@@ -24,8 +24,10 @@ export default function CountyWeather() {
     <Layout county={county}>
       <section className="page-hero">
         <div className="container">
-          <h1>{county.displayName} Weather</h1>
-          <p>Weather integrations can be added when county city or coordinates are configured.</p>
+          <div className="hero-panel">
+            <h1>{county.displayName} Weather</h1>
+            <p>Weather integrations can be added when county city or coordinates are configured.</p>
+          </div>
         </div>
       </section>
       <section className="section">

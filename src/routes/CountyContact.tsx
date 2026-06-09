@@ -27,9 +27,11 @@ export default function CountyContact() {
     <Layout county={county}>
       <section className="page-hero">
         <div className="container">
-          <p className="eyebrow">{county.displayName}</p>
-          <h1>let's talk</h1>
-          <p>Reach out to your local county GOP team.</p>
+          <div className="hero-panel">
+            <p className="eyebrow">{county.displayName}</p>
+            <h1>let's talk</h1>
+            <p>Reach out to your local county GOP team.</p>
+          </div>
         </div>
       </section>
       <section className="section">

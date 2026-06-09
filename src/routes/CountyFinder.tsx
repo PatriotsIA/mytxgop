@@ -90,7 +90,7 @@ export default function CountyFinder() {
     <main>
       <section className="finder-hero">
         <div className="container finder-grid">
-          <div>
+          <div className="hero-panel">
             <p className="eyebrow">My Texas GOP</p>
             <h1>Find your state or county Republican Party</h1>
             <p>Search by state, abbreviation, county, city, or FIPS. Narrow results to one state using the menu in the search bar.</p>

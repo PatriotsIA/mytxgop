@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/MyGOPMasterLOGOColor.png";
 import type { CountySite } from "../data/countyTypes";
 import { countyPath } from "../lib/paths";
 import { MegaNav } from "./MegaNav";
@@ -9,8 +8,9 @@ export function Header({ county }: { county: CountySite }) {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link className="brand" to={countyPath(county)} aria-label={`${county.partyName} home`}>
-          <img src={logo} alt={`${county.partyName} logo`} />
+        <Link className="brand brand-text" to={countyPath(county)} aria-label={`${county.partyName} home`}>
+          <span className="brand-eyebrow">My {county.state.name} GOP</span>
+          <span className="brand-title">{county.partyName}</span>
         </Link>
         <MegaNav county={county} />
         <MobileNav county={county} />

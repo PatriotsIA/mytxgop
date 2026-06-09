@@ -7,7 +7,7 @@ export function CountyHero({ county }: { county: CountySite }) {
   return (
     <section className="hero-section">
       <div className="container hero-grid">
-        <div className="hero-copy">
+        <div className="hero-copy hero-panel">
           {county.hero.eyebrow ? <p className="eyebrow">{county.hero.eyebrow}</p> : null}
           <h1>{county.hero.title}</h1>
           <p>{county.hero.subtitle}</p>

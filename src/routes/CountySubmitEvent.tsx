@@ -23,9 +23,11 @@ export default function CountySubmitEvent() {
     <Layout county={county}>
       <section className="page-hero">
         <div className="container">
-          <p className="eyebrow">{county.displayName}</p>
-          <h1>submit an event</h1>
-          <p>Submit your local event for review. Approved events may be added to the {county.displayName} community calendar.</p>
+          <div className="hero-panel">
+            <p className="eyebrow">{county.displayName}</p>
+            <h1>submit an event</h1>
+            <p>Submit your local event for review. Approved events may be added to the {county.displayName} community calendar.</p>
+          </div>
         </div>
       </section>
       <section className="section">

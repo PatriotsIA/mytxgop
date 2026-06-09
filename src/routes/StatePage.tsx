@@ -42,7 +42,7 @@ export default function StatePage() {
     <main>
       <section className="finder-hero">
         <div className="container finder-grid">
-          <div>
+          <div className="hero-panel">
             <p className="eyebrow">My {state.name} GOP</p>
             <h1>{state.name} county directory</h1>
             <p>Find the county-specific GOP page for every county in {state.name}.</p>
