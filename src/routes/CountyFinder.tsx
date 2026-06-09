@@ -40,6 +40,8 @@ function countyCountLabel(count: number) {
   return `${count} ${count === 1 ? "county" : "counties"}`;
 }
 
+const STATE_DIRECTORY_COUNT = 50;
+
 export default function CountyFinder() {
   const [searchQuery, setSearchQuery] = useState("");
   const [stateFilter, setStateFilter] = useState("all");
@@ -91,29 +93,32 @@ export default function CountyFinder() {
           <div>
             <p className="eyebrow">My Texas GOP</p>
             <h1>Find your state or county Republican Party</h1>
-            <p>Search by state, abbreviation, county, city, or FIPS. Use the state filter when you want county results from one state only.</p>
+            <p>Search by state, abbreviation, county, city, or FIPS. Narrow results to one state using the menu in the search bar.</p>
             <label className="search-label" htmlFor="directory-search">Search states and counties</label>
-            <input
-              id="directory-search"
-              className="county-search"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Search Texas, TX, Potter, El Paso..."
-            />
-            <label className="search-label" htmlFor="state-filter">Limit county results to a state</label>
-            <select
-              id="state-filter"
-              className="county-search state-filter"
-              value={stateFilter}
-              onChange={handleStateFilterChange}
-            >
-              <option value="all">All states</option>
-              {states.map((state) => (
-                <option key={state.slug} value={state.slug}>
-                  {state.name}
-                </option>
-              ))}
-            </select>
+            <div className="finder-search-combo">
+              <select
+                id="state-filter"
+                className="finder-search-state"
+                value={stateFilter}
+                onChange={handleStateFilterChange}
+                aria-label="Filter by state"
+              >
+                <option value="all">All states</option>
+                {states.map((state) => (
+                  <option key={state.slug} value={state.slug}>
+                    {state.name}
+                  </option>
+                ))}
+              </select>
+              <input
+                id="directory-search"
+                className="finder-search-input"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search Texas, TX, Potter, El Paso..."
+                type="search"
+              />
+            </div>
             {selectedState ? (
               <p className="filter-note">
                 Filtering counties in <strong>{selectedState.name}</strong>.
@@ -121,7 +126,7 @@ export default function CountyFinder() {
             ) : null}
           </div>
           <div className="finder-stat-card">
-            <strong>{states.length}</strong>
+            <strong>{STATE_DIRECTORY_COUNT}</strong>
             <span>state directories</span>
             <strong>{counties.length}</strong>
             <span>county pages</span>
@@ -133,7 +138,7 @@ export default function CountyFinder() {
           <div className="section-heading">
             <p className="eyebrow">States</p>
             <h2>Browse by state</h2>
-            <p>Open a state page to see every county there, or use the state filter above to keep searching on this page.</p>
+            <p>Open a state page to see every county there, or narrow by state in the search bar above.</p>
           </div>
           <div className="state-grid" aria-live="polite">
             {filteredStates.map((state) => (
