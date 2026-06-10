@@ -6,6 +6,22 @@ export type LeadershipMember = {
   bio?: string;
 };
 
+export type SupportReportOfficial = {
+  name: string;
+  office: string;
+  jurisdiction?: string;
+  party?: string;
+  termEnds?: string;
+  contact?: {
+    phone?: string;
+    email?: string;
+    website?: string;
+    address?: string;
+  };
+  localGopContribution?: string;
+  contributionNote?: string;
+};
+
 export type StateSite = {
   name: string;
   abbr: string;
@@ -71,4 +87,9 @@ export type CountySite = {
     obituaries?: string;
   };
   leadership?: LeadershipMember[];
+  supportReport?: {
+    sourceUrl?: string;
+    lastReviewed?: string;
+    officials: SupportReportOfficial[];
+  };
 };

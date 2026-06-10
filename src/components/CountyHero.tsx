@@ -14,6 +14,7 @@ export function CountyHero({ county }: { county: CountySite }) {
           <div className="button-row">
             <Button href={getElectedOfficialsUrl(county)}>Elected Officials</Button>
             <Button to={countyPagePath(county, "about")} variant="secondary">GOP Leadership</Button>
+            <Button to={countyPagePath(county, "support-report")} variant="secondary">Support Report</Button>
           </div>
         </div>
       </div>

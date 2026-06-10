@@ -47,9 +47,10 @@
   left: 0;
   right: 0;
   z-index: 20;
-  background: transparent;
-  border-bottom: 0;
-  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--color-gray-200);
+  box-shadow: 0 8px 24px rgba(7, 26, 51, 0.12);
+  backdrop-filter: blur(8px);
 }
 
 .header-inner {
@@ -101,7 +102,7 @@
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -903,6 +904,86 @@
 .contact-cards {
   display: grid;
   gap: 18px;
+}
+
+.support-report-section {
+  background: var(--color-gray-50);
+}
+
+.report-updated {
+  align-self: start;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: var(--color-gray-600);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.report-table-wrap {
+  overflow-x: auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.support-report-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+}
+
+.support-report-table th,
+.support-report-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--color-gray-200);
+  text-align: left;
+  vertical-align: top;
+}
+
+.support-report-table th {
+  color: var(--color-navy);
+  background: #f3f6fb;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.support-report-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.support-report-table td {
+  color: #39465a;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.support-report-table td strong,
+.support-report-table td span {
+  display: block;
+}
+
+.support-report-table td strong {
+  color: var(--color-navy);
+}
+
+.support-report-table td span {
+  color: var(--color-gray-600);
+}
+
+.official-contact {
+  display: grid;
+  gap: 4px;
+}
+
+.official-contact a {
+  color: var(--color-blue);
+  font-weight: 800;
+  text-decoration: none;
 }
 
 @media (max-width: 980px) {

@@ -22,6 +22,7 @@ export function MobileNav({ county }: { county: CountySite }) {
           <Link to="/">Find Another County</Link>
           <Link to={statePath(county.state)}>{county.state.name} Counties</Link>
           <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
+          <Link to={countyPagePath(county, "support-report")}>Support Report</Link>
           <Link to={countyPagePath(county, "contact-us")}>Contact Us</Link>
           <Link to={countyPagePath(county, "submit-event")}>Submit Event</Link>
           <Link to={countyPagePath(county, "weather")}>Weather</Link>

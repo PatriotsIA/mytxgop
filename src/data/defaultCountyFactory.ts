@@ -26,7 +26,7 @@ export function createDefaultCountySite(name: string, state: StateSite, fips: st
     },
     hero: {
       eyebrow: `My ${state.name} GOP`,
-      title: `${name.toLowerCase()} county GOP`,
+      title: `${displayName} GOP`,
       subtitle:
         "Empowering our community to stand for conservative values, strengthen local leadership, and make a difference right here at home.",
       imageAlt: `${displayName} patriotic Texas landscape placeholder`,

@@ -8,6 +8,7 @@ export function MegaNav({ county }: { county: CountySite }) {
       <Link to="/">Find Another County</Link>
       <Link to={statePath(county.state)}>{county.state.abbr} Counties</Link>
       <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
+      <Link to={countyPagePath(county, "support-report")}>Support Report</Link>
       <div className="nav-group">
         <button type="button">Elections & More</button>
         <div className="mega-panel">
