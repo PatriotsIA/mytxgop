@@ -9,7 +9,7 @@ export function Header({ county }: { county: CountySite }) {
     <header className="site-header">
       <div className="container header-inner">
         <Link className="brand brand-text" to={countyPath(county)} aria-label={`${county.partyName} home`}>
-          <span className="brand-eyebrow">My {county.state.name} GOP</span>
+          <span className="brand-eyebrow">GOP Connect</span>
           <span className="brand-title">{county.partyName}</span>
         </Link>
         <MegaNav county={county} />

@@ -18,7 +18,7 @@ export default function CountyHome() {
 
   useEffect(() => {
     if (county) {
-      setPageSeo(`${county.partyName} | My Texas GOP`, county.hero.subtitle, countyPath(county));
+      setPageSeo(`${county.partyName} | GOP Connect`, county.hero.subtitle, countyPath(county));
     }
   }, [county]);
 

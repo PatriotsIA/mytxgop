@@ -1,4 +1,4 @@
-# My Texas GOP
+# GOP Connect
 
 Responsive React + Vite + TypeScript SPA for county GOP sites across all 254 Texas counties.
 

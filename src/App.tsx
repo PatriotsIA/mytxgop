@@ -15,7 +15,7 @@ const NotFound = lazy(() => import("./routes/NotFound"));
 
 function App() {
   return (
-    <Suspense fallback={<div className="route-loading">Loading My Texas GOP...</div>}>
+    <Suspense fallback={<div className="route-loading">Loading GOP Connect...</div>}>
       <Routes>
         <Route path="/" element={<CountyFinder />} />
         <Route path="/not-found" element={<NotFound />} />
