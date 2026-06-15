@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
 const CountyFinder = lazy(() => import("./routes/CountyFinder"));
 const StatePage = lazy(() => import("./routes/StatePage"));
@@ -16,6 +17,7 @@ const NotFound = lazy(() => import("./routes/NotFound"));
 function App() {
   return (
     <Suspense fallback={<div className="route-loading">Loading GOP Connect...</div>}>
+      <GoogleAnalytics />
       <Routes>
         <Route path="/" element={<CountyFinder />} />
         <Route path="/not-found" element={<NotFound />} />
