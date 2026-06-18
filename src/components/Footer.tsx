@@ -43,7 +43,7 @@ export function Footer({ county }: { county: CountySite }) {
           </a>
         </section>
       </div>
-      <div className="container copyright">© {new Date().getFullYear()} • Powered by GOP Connect • All Rights Reserved • Privacy Policy & Terms</div>
+      <div className="container copyright">© {new Date().getFullYear()} • Powered by My Local GOP • All Rights Reserved • Privacy Policy & Terms</div>
     </footer>
   );
 }

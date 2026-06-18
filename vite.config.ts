@@ -13,7 +13,7 @@ function combineIcsFeeds(icsTexts: string[]) {
     .filter(Boolean)
     .join("\n");
 
-  return `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//GOPConnect//CountyCalendar//EN\n${combinedEvents}\nEND:VCALENDAR`;
+  return `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//MyLocalGOP//CountyCalendar//EN\n${combinedEvents}\nEND:VCALENDAR`;
 }
 
 function calendarApiDevMiddleware(): Plugin {

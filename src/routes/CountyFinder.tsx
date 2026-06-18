@@ -91,7 +91,7 @@ export default function CountyFinder() {
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">
-            <p className="eyebrow">GOP Connect</p>
+            <p className="eyebrow">My Local GOP</p>
             <h1>Find your state or county Republican Party</h1>
             <p>Search by state, abbreviation, county, city, or FIPS. Narrow results to one state using the menu in the search bar.</p>
             <label className="search-label" htmlFor="directory-search">Search states and counties</label>

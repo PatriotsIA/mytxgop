@@ -30,7 +30,7 @@ export default function StatePage() {
 
   useEffect(() => {
     if (state) {
-      setPageSeo(`${state.name} County GOP Directory | GOP Connect`, `Find county Republican Party pages across ${state.name}.`, statePath(state));
+      setPageSeo(`${state.name} County GOP Directory | My Local GOP`, `Find county Republican Party pages across ${state.name}.`, statePath(state));
     }
   }, [state]);
 
@@ -43,7 +43,7 @@ export default function StatePage() {
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">
-            <p className="eyebrow">GOP Connect</p>
+            <p className="eyebrow">My Local GOP</p>
             <h1>{state.name} county directory</h1>
             <p>Find the county-specific GOP page for every county in {state.name}.</p>
             <label className="search-label" htmlFor="state-county-search">Search {state.name} counties</label>

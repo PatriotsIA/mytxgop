@@ -16,7 +16,7 @@ const NotFound = lazy(() => import("./routes/NotFound"));
 
 function App() {
   return (
-    <Suspense fallback={<div className="route-loading">Loading GOP Connect...</div>}>
+    <Suspense fallback={<div className="route-loading">Loading My Local GOP...</div>}>
       <GoogleAnalytics />
       <Routes>
         <Route path="/" element={<CountyFinder />} />

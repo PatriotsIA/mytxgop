@@ -25,7 +25,7 @@ export function createDefaultCountySite(name: string, state: StateSite, fips: st
       eventSubmissionToEmail: defaultContactEmail,
     },
     hero: {
-      eyebrow: "GOP Connect",
+      eyebrow: "My Local GOP",
       title: `${displayName} GOP`,
       subtitle:
         "Empowering our community to stand for conservative values, strengthen local leadership, and make a difference right here at home.",
