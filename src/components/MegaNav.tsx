@@ -1,16 +1,54 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
 import { countyPagePath, countyPath, statePath } from "../lib/paths";
 
+type OpenMenu = "elections" | "news" | null;
+
 export function MegaNav({ county }: { county: CountySite }) {
+  const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    function handlePointerDown(event: PointerEvent) {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpenMenu(null);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  function toggleMenu(menu: Exclude<OpenMenu, null>) {
+    setOpenMenu((current) => (current === menu ? null : menu));
+  }
+
   return (
-    <nav className="desktop-nav" aria-label="Primary navigation">
+    <nav ref={navRef} className="desktop-nav" aria-label="Primary navigation">
       <Link to="/">Find Another County</Link>
       <Link to={statePath(county.state)}>{county.state.abbr} Counties</Link>
       <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
       <Link to={countyPagePath(county, "support-report")}>Support Report</Link>
-      <div className="nav-group">
-        <button type="button">Elections & More</button>
+      <div className={`nav-group${openMenu === "elections" ? " is-open" : ""}`}>
+        <button
+          type="button"
+          aria-expanded={openMenu === "elections"}
+          aria-haspopup="true"
+          onClick={() => toggleMenu("elections")}
+        >
+          Elections & More
+        </button>
         <div className="mega-panel">
           <a href={county.links.precinctMap}>Precinct Map</a>
           <a href={county.links.votingLocations}>Voting Locations</a>
@@ -23,8 +61,15 @@ export function MegaNav({ county }: { county: CountySite }) {
           <a href="https://www.gop.com/platform/" target="_blank" rel="noreferrer">National Republican Platform</a>
         </div>
       </div>
-      <div className="nav-group">
-        <button type="button">News & Events</button>
+      <div className={`nav-group${openMenu === "news" ? " is-open" : ""}`}>
+        <button
+          type="button"
+          aria-expanded={openMenu === "news"}
+          aria-haspopup="true"
+          onClick={() => toggleMenu("news")}
+        >
+          News & Events
+        </button>
         <div className="mega-panel">
           <Link to={countyPagePath(county, "weather")}>Weather</Link>
           <Link to={countyPagePath(county, "local-news")}>Local News</Link>

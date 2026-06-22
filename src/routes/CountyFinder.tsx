@@ -93,7 +93,7 @@ export default function CountyFinder() {
           <div className="hero-panel">
             <p className="eyebrow">My Local GOP</p>
             <h1>Find your state or county Republican Party</h1>
-            <p>Search by state, abbreviation, county, city, or FIPS. Narrow results to one state using the menu in the search bar.</p>
+            <p>Search by state, abbreviation, county, or city. Narrow results to one state using the menu in the search bar.</p>
             <label className="search-label" htmlFor="directory-search">Search states and counties</label>
             <div className="finder-search-combo">
               <select
@@ -176,7 +176,7 @@ export default function CountyFinder() {
             {filteredCounties.map((county) => (
               <Link key={`${county.state.slug}-${county.slug}`} className="county-link-card" to={countyPath(county)}>
                 <strong>{county.displayName}</strong>
-                <span>{county.state.name} {county.fips ? `· FIPS ${county.fips}` : ""}{county.isCustom ? " · Custom demo" : ""}</span>
+                <span>{county.state.name}{county.primaryCity ? ` · ${county.primaryCity}` : ""}{county.isCustom ? " · Custom demo" : ""}</span>
               </Link>
             ))}
             {filteredCounties.length === 0 ? <p className="empty-results">No counties match the current search.</p> : null}

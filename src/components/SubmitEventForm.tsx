@@ -5,6 +5,7 @@ import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "
 import { Button } from "./Button";
 import { FormField } from "./FormField";
 import { FormStatus } from "./FormStatus";
+import { legalLinks } from "../lib/links";
 
 type EventFields = "submitterName" | "submitterEmail" | "eventName" | "eventDate" | "eventDescription" | "consent";
 
@@ -112,7 +113,12 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
       <FormField id="eventDescription" label="Event Description" value={form.eventDescription} error={errors.eventDescription} required as="textarea" onChange={update("eventDescription")} />
       <div className="checkbox-field">
         <input id="consent" type="checkbox" checked={form.consent} aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "consent-error" : undefined} onChange={(event) => update("consent")(event.target.checked)} />
-        <label htmlFor="consent">I understand this submission will be reviewed before being added to the calendar.</label>
+        <label htmlFor="consent">
+          I understand this submission will be reviewed before being added to the calendar and agree to MyLocalGOP&apos;s{" "}
+          <a href={legalLinks.privacyPolicyUrl} target="_blank" rel="noreferrer">Privacy Policy</a>
+          {" "}and{" "}
+          <a href={legalLinks.termsOfServiceUrl} target="_blank" rel="noreferrer">Terms of Service</a>.
+        </label>
       </div>
       {errors.consent ? <p className="field-error" id="consent-error">{errors.consent}</p> : null}
       <FormStatus status={status} />

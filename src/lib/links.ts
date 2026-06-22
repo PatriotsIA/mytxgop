@@ -11,6 +11,11 @@ export const globalLinks: CountySite["links"] = {
   patriotRewards: "https://patriotsinaction.com/",
 };
 
+export const legalLinks = {
+  privacyPolicyUrl: "https://patriotsforaction.org/privacy/",
+  termsOfServiceUrl: "https://patriotsforaction.org/terms",
+} as const;
+
 export function isExternalUrl(url?: string) {
   return Boolean(url && /^https?:\/\//i.test(url));
 }

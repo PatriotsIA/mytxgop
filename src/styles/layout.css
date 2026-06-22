@@ -138,8 +138,18 @@
   box-shadow: 0 22px 60px rgba(7, 26, 51, 0.2);
 }
 
+.mega-panel::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
 .nav-group:hover .mega-panel,
-.nav-group:focus-within .mega-panel {
+.nav-group:focus-within .mega-panel,
+.nav-group.is-open .mega-panel {
   display: grid;
 }
 

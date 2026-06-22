@@ -4,6 +4,7 @@ import { sendContactEmail } from "../lib/email";
 import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "../lib/validation";
 import { Button } from "./Button";
 import { FormField } from "./FormField";
+import { FormLegalNotice } from "./FormLegalNotice";
 import { FormStatus } from "./FormStatus";
 
 type ContactFields = "name" | "email" | "subject" | "message";
@@ -83,6 +84,7 @@ export function ContactForm({ county }: { county: CountySite }) {
         <FormField id="subject" label="Subject" value={form.subject} error={errors.subject} required onChange={update("subject")} />
       </div>
       <FormField id="message" label="Message" value={form.message} error={errors.message} required as="textarea" onChange={update("message")} />
+      <FormLegalNotice />
       <FormStatus status={status} />
       <Button type="submit" disabled={sending || cooldownUntil > 0}>{sending ? "Sending..." : "Send Message"}</Button>
     </form>

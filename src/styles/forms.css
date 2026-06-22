@@ -84,6 +84,19 @@
   overflow: hidden;
 }
 
+.form-legal-notice {
+  margin: 0;
+  color: var(--color-gray-600, #4b5563);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.form-legal-notice a,
+.checkbox-field label a {
+  color: var(--color-blue-bright);
+  font-weight: 700;
+}
+
 @media (max-width: 760px) {
   .form-grid {
     grid-template-columns: 1fr;

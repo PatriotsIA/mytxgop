@@ -52,7 +52,7 @@ export default function StatePage() {
               className="county-search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search by county, city, slug, or FIPS..."
+              placeholder="Search by county, city, or slug..."
             />
           </div>
           <div className="finder-stat-card">
@@ -70,7 +70,7 @@ export default function StatePage() {
           {filteredCounties.map((county) => (
             <Link key={`${county.state.slug}-${county.slug}`} className="county-link-card" to={countyPath(county)}>
               <strong>{county.displayName}</strong>
-              <span>{county.fips ? `FIPS ${county.fips}` : `${state.name} county page`}</span>
+              <span>{county.primaryCity ? `${county.primaryCity}, ${state.abbr}` : `${state.name} county page`}</span>
             </Link>
           ))}
         </div>

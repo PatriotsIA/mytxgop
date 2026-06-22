@@ -4,6 +4,7 @@ import piaLogo from "../../assets/PIAlogo2.png";
 import piaTextLogo from "../../assets/PIAFooterLogo.png";
 import type { CountySite } from "../data/countyTypes";
 import { countyPagePath } from "../lib/paths";
+import { legalLinks } from "../lib/links";
 
 export function Footer({ county }: { county: CountySite }) {
   return (
@@ -43,7 +44,12 @@ export function Footer({ county }: { county: CountySite }) {
           </a>
         </section>
       </div>
-      <div className="container copyright">© {new Date().getFullYear()} • Powered by My Local GOP • All Rights Reserved • Privacy Policy & Terms</div>
+      <div className="container copyright">
+        © {new Date().getFullYear()} • Powered by My Local GOP • All Rights Reserved •{" "}
+        <a href={legalLinks.privacyPolicyUrl} target="_blank" rel="noreferrer">Privacy Policy</a>
+        {" "}&{" "}
+        <a href={legalLinks.termsOfServiceUrl} target="_blank" rel="noreferrer">Terms of Service</a>
+      </div>
     </footer>
   );
 }
