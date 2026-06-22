@@ -44,7 +44,7 @@ export const potterCounty: Partial<CountySite> = {
     useInternalSubmitEventForm: true,
   },
   links: {
-    donateUrl: "https://secure.anedot.com/patriots-for-action/donate",
+    donateUrl: "https://secure.anedot.com/potter-county-republican-partu/pottercountyrepublicanparty",
     communityUrl: "https://community.patriotsinaction.com/",
     submitEventUrl: "/tx/potter/submit-event",
     precinctMap: "https://www.pottercountytexasvotes.gov/",

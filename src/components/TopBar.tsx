@@ -11,9 +11,11 @@ export function TopBar({ county }: { county: CountySite }) {
         </a>
         {county.phone ? <a href={`tel:${county.phone}`}>{county.phone}</a> : null}
         <a href={`mailto:${county.email || "info@mytexasgop.com"}`}>{county.email || "info@mytexasgop.com"}</a>
-        <a className="topbar-donate" href={county.links.donateUrl} target="_blank" rel="noreferrer">
-          Donate Now
-        </a>
+        {county.links.donateUrl ? (
+          <a className="topbar-donate" href={county.links.donateUrl} target="_blank" rel="noreferrer">
+            Donate Now
+          </a>
+        ) : null}
         <a className="community-link" href={county.links.communityUrl} target="_blank" rel="noreferrer">
           Join Our Interactive Community!
         </a>

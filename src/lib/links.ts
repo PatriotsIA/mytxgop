@@ -2,7 +2,6 @@ import type { CountySite } from "../data/countyTypes";
 import { countyPagePath } from "./paths";
 
 export const globalLinks: CountySite["links"] = {
-  donateUrl: "https://secure.anedot.com/patriots-for-action/donate",
   communityUrl: "https://community.patriotsinaction.com/",
   electedOfficialsState: "https://wrm.capitol.texas.gov/",
   electedOfficialsFederal: "https://wrm.capitol.texas.gov/",

@@ -41,7 +41,9 @@ export default function CountyContact() {
             <Card><h2>Email</h2><p><a href={`mailto:${email}`}>{email}</a></p></Card>
             <div className="button-row">
               <Button href={county.links.communityUrl}>Join Community</Button>
-              <Button href={county.links.donateUrl} variant="secondary">Donate</Button>
+              {county.links.donateUrl ? (
+                <Button href={county.links.donateUrl} variant="secondary">Donate</Button>
+              ) : null}
             </div>
           </div>
           <ContactForm county={county} />

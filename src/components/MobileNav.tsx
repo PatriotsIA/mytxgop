@@ -33,7 +33,9 @@ export function MobileNav({ county }: { county: CountySite }) {
           <a href={county.links.registerToVote}>Register to Vote</a>
           <a href={county.links.communityUrl} target="_blank" rel="noreferrer">Community</a>
           <a href={county.links.merch} target="_blank" rel="noreferrer">Merch</a>
-          <a href={county.links.donateUrl} target="_blank" rel="noreferrer">Donate</a>
+          {county.links.donateUrl ? (
+            <a href={county.links.donateUrl} target="_blank" rel="noreferrer">Donate</a>
+          ) : null}
         </nav>
       ) : null}
     </div>

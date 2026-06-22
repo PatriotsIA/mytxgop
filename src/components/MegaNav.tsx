@@ -35,7 +35,9 @@ export function MegaNav({ county }: { county: CountySite }) {
         </div>
       </div>
       <a href={county.links.merch} target="_blank" rel="noreferrer">Merch</a>
-      <a href={county.links.donateUrl} target="_blank" rel="noreferrer">Donate</a>
+      {county.links.donateUrl ? (
+        <a href={county.links.donateUrl} target="_blank" rel="noreferrer">Donate</a>
+      ) : null}
     </nav>
   );
 }
