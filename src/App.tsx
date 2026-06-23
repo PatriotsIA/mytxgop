@@ -13,6 +13,8 @@ const CountyWeather = lazy(() => import("./routes/CountyWeather"));
 const CountyNews = lazy(() => import("./routes/CountyNews"));
 const LegacyCountyRedirect = lazy(() => import("./routes/LegacyCountyRedirect"));
 const NotFound = lazy(() => import("./routes/NotFound"));
+const Privacy = lazy(() => import("./routes/Privacy"));
+const Terms = lazy(() => import("./routes/Terms"));
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <GoogleAnalytics />
       <Routes>
         <Route path="/" element={<CountyFinder />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/not-found" element={<NotFound />} />
         <Route path="/:countySlug/about" element={<LegacyCountyRedirect pageSlug="about" />} />
         <Route path="/:countySlug/contact-us" element={<LegacyCountyRedirect pageSlug="contact-us" />} />

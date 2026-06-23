@@ -12,8 +12,8 @@ export const globalLinks: CountySite["links"] = {
 };
 
 export const legalLinks = {
-  privacyPolicyUrl: "https://patriotsforaction.org/privacy/",
-  termsOfServiceUrl: "https://patriotsforaction.org/terms",
+  privacyPolicyPath: "/privacy",
+  termsOfServicePath: "/terms",
 } as const;
 
 export function isExternalUrl(url?: string) {

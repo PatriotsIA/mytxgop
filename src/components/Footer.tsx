@@ -46,9 +46,9 @@ export function Footer({ county }: { county: CountySite }) {
       </div>
       <div className="container copyright">
         © {new Date().getFullYear()} • Powered by My Local GOP • All Rights Reserved •{" "}
-        <a href={legalLinks.privacyPolicyUrl} target="_blank" rel="noreferrer">Privacy Policy</a>
+        <Link to={legalLinks.privacyPolicyPath}>Privacy Policy</Link>
         {" "}&{" "}
-        <a href={legalLinks.termsOfServiceUrl} target="_blank" rel="noreferrer">Terms of Service</a>
+        <Link to={legalLinks.termsOfServicePath}>Terms of Service</Link>
       </div>
     </footer>
   );

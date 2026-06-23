@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
 import { sendEventSubmissionEmail } from "../lib/email";
 import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "../lib/validation";
@@ -114,10 +115,10 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
       <div className="checkbox-field">
         <input id="consent" type="checkbox" checked={form.consent} aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "consent-error" : undefined} onChange={(event) => update("consent")(event.target.checked)} />
         <label htmlFor="consent">
-          I understand this submission will be reviewed before being added to the calendar and agree to MyLocalGOP&apos;s{" "}
-          <a href={legalLinks.privacyPolicyUrl} target="_blank" rel="noreferrer">Privacy Policy</a>
+          I understand this submission will be reviewed before being added to the calendar and agree to My Local GOP&apos;s{" "}
+          <Link to={legalLinks.privacyPolicyPath}>Privacy Policy</Link>
           {" "}and{" "}
-          <a href={legalLinks.termsOfServiceUrl} target="_blank" rel="noreferrer">Terms of Service</a>.
+          <Link to={legalLinks.termsOfServicePath}>Terms of Service</Link>.
         </label>
       </div>
       {errors.consent ? <p className="field-error" id="consent-error">{errors.consent}</p> : null}
