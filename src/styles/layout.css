@@ -874,6 +874,27 @@
   gap: 14px;
 }
 
+.directory-legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  color: var(--color-gray-600);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.directory-legal-links a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.directory-legal-links a:hover {
+  color: var(--color-navy);
+}
+
 .county-link-card {
   display: grid;
   gap: 6px;

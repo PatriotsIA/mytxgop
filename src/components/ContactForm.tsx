@@ -4,10 +4,10 @@ import { sendContactEmail } from "../lib/email";
 import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "../lib/validation";
 import { Button } from "./Button";
 import { FormField } from "./FormField";
-import { FormLegalNotice } from "./FormLegalNotice";
 import { FormStatus } from "./FormStatus";
+import { MarketingConsentField } from "./MarketingConsentField";
 
-type ContactFields = "name" | "email" | "subject" | "message";
+type ContactFields = "name" | "email" | "subject" | "message" | "consent";
 
 const initialForm = {
   name: "",
@@ -15,6 +15,7 @@ const initialForm = {
   phone: "",
   subject: "",
   message: "",
+  consent: false,
   website: "",
 };
 
@@ -32,7 +33,8 @@ export function ContactForm({ county }: { county: CountySite }) {
     return () => window.clearTimeout(timeoutId);
   }, [cooldownUntil]);
 
-  const update = (key: keyof typeof form) => (value: string) => setForm((current) => ({ ...current, [key]: value }));
+  const update = (key: keyof typeof form) => (value: string | boolean) =>
+    setForm((current) => ({ ...current, [key]: value }));
 
   const validate = () => {
     const nextErrors: FieldErrors<ContactFields> = {};
@@ -40,6 +42,7 @@ export function ContactForm({ county }: { county: CountySite }) {
     if (!isValidEmail(form.email)) nextErrors.email = "Enter a valid email address.";
     if (!form.subject.trim()) nextErrors.subject = "Subject is required.";
     if (!hasMinimumLength(form.message, 10)) nextErrors.message = "Message must be at least 10 characters.";
+    if (!form.consent) nextErrors.consent = "Please confirm your consent to continue.";
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -60,6 +63,7 @@ export function ContactForm({ county }: { county: CountySite }) {
         phone: sanitizeText(form.phone),
         subject: sanitizeText(form.subject),
         message: sanitizeText(form.message),
+        consent: form.consent,
       });
       setForm(initialForm);
       setStatus({ type: "success", message: "Your message has been sent. We'll get back to you soon." });
@@ -84,7 +88,12 @@ export function ContactForm({ county }: { county: CountySite }) {
         <FormField id="subject" label="Subject" value={form.subject} error={errors.subject} required onChange={update("subject")} />
       </div>
       <FormField id="message" label="Message" value={form.message} error={errors.message} required as="textarea" onChange={update("message")} />
-      <FormLegalNotice />
+      <MarketingConsentField
+        id="contact-marketing-consent"
+        checked={form.consent}
+        error={errors.consent}
+        onChange={(checked) => update("consent")(checked)}
+      />
       <FormStatus status={status} />
       <Button type="submit" disabled={sending || cooldownUntil > 0}>{sending ? "Sending..." : "Send Message"}</Button>
     </form>

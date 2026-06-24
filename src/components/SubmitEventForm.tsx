@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
 import { sendEventSubmissionEmail } from "../lib/email";
 import { hasMinimumLength, isValidEmail, sanitizeText, type FieldErrors } from "../lib/validation";
 import { Button } from "./Button";
 import { FormField } from "./FormField";
 import { FormStatus } from "./FormStatus";
-import { legalLinks } from "../lib/links";
+import { MarketingConsentField } from "./MarketingConsentField";
 
-type EventFields = "submitterName" | "submitterEmail" | "eventName" | "eventDate" | "eventDescription" | "consent";
+type EventFields =
+  | "submitterName"
+  | "submitterEmail"
+  | "eventName"
+  | "eventDate"
+  | "eventDescription"
+  | "consent"
+  | "calendarReviewConsent";
 
 const blankEvent = {
   submitterName: "",
@@ -24,6 +30,7 @@ const blankEvent = {
   eventUrl: "",
   requestedCalendar: "",
   consent: false,
+  calendarReviewConsent: false,
   website: "",
 };
 
@@ -50,7 +57,8 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
     if (!form.eventName.trim()) nextErrors.eventName = "Event name is required.";
     if (!form.eventDate) nextErrors.eventDate = "Event date is required.";
     if (!hasMinimumLength(form.eventDescription, 15)) nextErrors.eventDescription = "Description must be at least 15 characters.";
-    if (!form.consent) nextErrors.consent = "Please confirm the review process.";
+    if (!form.consent) nextErrors.consent = "Please confirm your consent to continue.";
+    if (!form.calendarReviewConsent) nextErrors.calendarReviewConsent = "Please confirm the review process.";
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -79,6 +87,7 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
         eventUrl: sanitizeText(form.eventUrl),
         requestedCalendar: sanitizeText(form.requestedCalendar),
         consent: form.consent,
+        calendarReviewConsent: form.calendarReviewConsent,
       });
       setForm({ ...blankEvent, requestedCalendar: `${county.displayName} Community Calendar` });
       setStatus({ type: "success", message: "Thank you. Your event has been submitted for review." });
@@ -112,16 +121,30 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
         </FormField>
       </div>
       <FormField id="eventDescription" label="Event Description" value={form.eventDescription} error={errors.eventDescription} required as="textarea" onChange={update("eventDescription")} />
+      <MarketingConsentField
+        id="event-marketing-consent"
+        checked={form.consent}
+        error={errors.consent}
+        onChange={(checked) => update("consent")(checked)}
+      />
       <div className="checkbox-field">
-        <input id="consent" type="checkbox" checked={form.consent} aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? "consent-error" : undefined} onChange={(event) => update("consent")(event.target.checked)} />
-        <label htmlFor="consent">
-          I understand this submission will be reviewed before being added to the calendar and agree to My Local GOP&apos;s{" "}
-          <Link to={legalLinks.privacyPolicyPath}>Privacy Policy</Link>
-          {" "}and{" "}
-          <Link to={legalLinks.termsOfServicePath}>Terms of Service</Link>.
+        <input
+          id="calendar-review-consent"
+          type="checkbox"
+          checked={form.calendarReviewConsent}
+          aria-invalid={Boolean(errors.calendarReviewConsent)}
+          aria-describedby={errors.calendarReviewConsent ? "calendar-review-consent-error" : undefined}
+          onChange={(event) => update("calendarReviewConsent")(event.target.checked)}
+        />
+        <label htmlFor="calendar-review-consent">
+          I understand this submission will be reviewed before being added to the calendar.
         </label>
       </div>
-      {errors.consent ? <p className="field-error" id="consent-error">{errors.consent}</p> : null}
+      {errors.calendarReviewConsent ? (
+        <p className="field-error" id="calendar-review-consent-error">
+          {errors.calendarReviewConsent}
+        </p>
+      ) : null}
       <FormStatus status={status} />
       <Button type="submit" disabled={sending || cooldownUntil > 0}>{sending ? "Sending..." : "Submit Event"}</Button>
     </form>

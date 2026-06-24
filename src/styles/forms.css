@@ -76,6 +76,11 @@
   margin-top: 0.25rem;
 }
 
+.marketing-consent-field label {
+  font-weight: 600;
+  line-height: 1.65;
+}
+
 .honeypot {
   position: absolute;
   left: -10000px;

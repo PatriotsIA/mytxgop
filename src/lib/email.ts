@@ -9,6 +9,7 @@ export type ContactEmailPayload = {
   phone?: string;
   subject: string;
   message: string;
+  consent: boolean;
 };
 
 export type EventSubmissionPayload = {
@@ -28,6 +29,7 @@ export type EventSubmissionPayload = {
   eventUrl?: string;
   requestedCalendar?: string;
   consent: boolean;
+  calendarReviewConsent: boolean;
 };
 
 function getEmailConfig() {
@@ -53,6 +55,7 @@ function buildContactMessage(payload: ContactEmailPayload) {
     `Email: ${payload.fromEmail}`,
     `Phone: ${payload.phone || "Not provided"}`,
     `Subject: ${payload.subject}`,
+    `Marketing consent confirmed: ${payload.consent ? "Yes" : "No"}`,
     "",
     payload.message,
   ].join("\n");
@@ -75,7 +78,8 @@ function buildEventSubmissionMessage(payload: EventSubmissionPayload) {
     `Address: ${payload.eventAddress || "Not provided"}`,
     `Event URL: ${payload.eventUrl || "Not provided"}`,
     `Requested calendar: ${payload.requestedCalendar || "Not provided"}`,
-    `Consent confirmed: ${payload.consent ? "Yes" : "No"}`,
+    `Marketing consent confirmed: ${payload.consent ? "Yes" : "No"}`,
+    `Calendar review acknowledged: ${payload.calendarReviewConsent ? "Yes" : "No"}`,
     "",
     payload.eventDescription || "No event description provided.",
   ].join("\n");
@@ -105,6 +109,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
       subject: payload.subject,
       message,
       raw_message: payload.message,
+      consent: payload.consent ? "yes" : "no",
       page_url: window.location.href,
       submitted_at: new Date().toISOString(),
     },
@@ -143,6 +148,7 @@ export async function sendEventSubmissionEmail(payload: EventSubmissionPayload) 
       event_url: payload.eventUrl || "",
       requested_calendar: payload.requestedCalendar || "",
       consent: payload.consent ? "yes" : "no",
+      calendar_review_consent: payload.calendarReviewConsent ? "yes" : "no",
       message,
       page_url: window.location.href,
       submitted_at: new Date().toISOString(),

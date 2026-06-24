@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LegalPageLayout } from "../components/LegalPageLayout";
+import { phoneHref } from "../lib/contact";
 import { legalOrganization } from "../lib/legal";
 import { legalLinks } from "../lib/links";
 
@@ -11,16 +12,10 @@ export default function Privacy() {
       title={`Privacy Policy | ${name}`}
       description={`Privacy Policy for the ${name} website.`}
       canonicalPath={legalLinks.privacyPolicyPath}
+      heroTitle="Privacy policy"
+      heroIntro={`Privacy Policy for the ${name} website, structured for counsel review and aligned with common political texting expectations.`}
+      metaLabel={`Effective date: ${privacyEffectiveDate}`}
     >
-      <p className="eyebrow">Legal</p>
-      <h1>Privacy policy</h1>
-      <p className="legal-intro">
-        Privacy Policy for the {name} website, structured for counsel review and aligned with common political texting
-        expectations.
-      </p>
-      <p>
-        <strong>Effective date:</strong> {privacyEffectiveDate}
-      </p>
       <p>
         {name} (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting the privacy of visitors
         and users (&quot;you&quot; or &quot;your&quot;) of our website. This Privacy Policy outlines our practices
@@ -115,7 +110,7 @@ export default function Privacy() {
         If you have any questions or concerns regarding this Privacy Policy or our privacy practices, please contact us
         at{" "}
         <a href={`mailto:${email}`}>{email}</a>, by phone at{" "}
-        <a href={`tel:${phone.replace(/\./g, "")}`}>{phone}</a>, by mail at {mailingAddress}, or through a county{" "}
+        <a href={phoneHref(phone)}>{phone}</a>, by mail at {mailingAddress}, or through a county{" "}
         <Link to="/">Contact page</Link> on this website.
       </p>
     </LegalPageLayout>

@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { ContactForm } from "../components/ContactForm";
 import { Layout } from "../components/Layout";
+import { organizationContact, organizationPhone, phoneHref } from "../lib/contact";
 import { countyPagePath } from "../lib/paths";
 import { setPageSeo } from "../lib/seo";
 import { useCanonicalCountyPath, useCounty } from "./useCounty";
@@ -21,7 +22,8 @@ export default function CountyContact() {
   if (!county) return <Navigate to="/not-found" replace />;
   if (redirectTo) return <Navigate to={redirectTo} replace />;
 
-  const email = county.email || county.emailSettings?.contactToEmail || "info@mytexasgop.com";
+  const email = county.email || county.emailSettings?.contactToEmail || organizationContact.email;
+  const phone = organizationPhone(county.phone);
 
   return (
     <Layout county={county}>
@@ -37,7 +39,12 @@ export default function CountyContact() {
       <section className="section">
         <div className="container contact-layout">
           <div className="contact-cards">
-            <Card><h2>Phone</h2><p>{county.phone || "Phone number coming soon."}</p></Card>
+            <Card>
+              <h2>Phone</h2>
+              <p>
+                <a href={phoneHref(phone)}>{phone}</a>
+              </p>
+            </Card>
             <Card><h2>Email</h2><p><a href={`mailto:${email}`}>{email}</a></p></Card>
             <div className="button-row">
               <Button href={county.links.communityUrl}>Join Community</Button>

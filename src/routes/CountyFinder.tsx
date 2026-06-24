@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { counties, states } from "../data/counties";
+import { legalLinks } from "../lib/links";
 import { countyPath, statePath } from "../lib/paths";
 import districtOfColumbiaFlag from "../assets/flags/district-of-columbia.svg";
 
@@ -182,6 +183,11 @@ export default function CountyFinder() {
             {filteredCounties.length === 0 ? <p className="empty-results">No counties match the current search.</p> : null}
           </div>
         ) : null}
+        <div className="container directory-legal-links">
+          <Link to={legalLinks.privacyPolicyPath}>Privacy Policy</Link>
+          <span aria-hidden="true">•</span>
+          <Link to={legalLinks.termsOfServicePath}>Terms of Service</Link>
+        </div>
       </section>
     </main>
   );

@@ -3,10 +3,14 @@ import logo from "../../assets/MyGOPMasterLOGOColor.png";
 import piaLogo from "../../assets/PIAlogo2.png";
 import piaTextLogo from "../../assets/PIAFooterLogo.png";
 import type { CountySite } from "../data/countyTypes";
+import { organizationContact, organizationPhone, phoneHref } from "../lib/contact";
 import { countyPagePath } from "../lib/paths";
 import { legalLinks } from "../lib/links";
 
 export function Footer({ county }: { county: CountySite }) {
+  const phone = organizationPhone(county.phone);
+  const email = county.email || organizationContact.email;
+
   return (
     <footer className="footer">
       <div className="container footer-grid">
@@ -17,8 +21,10 @@ export function Footer({ county }: { county: CountySite }) {
           <a href={county.links.partnerWithUs}>Partner With Us</a>
           <a href={county.links.patriotRewards}>Join Patriot Rewards</a>
           <h2>Connect With Us</h2>
-          <p>{county.phone ? <a href={`tel:${county.phone}`}>{county.phone}</a> : null}</p>
-          <p><a href={`mailto:${county.email || "info@mytexasgop.com"}`}>{county.email || "info@mytexasgop.com"}</a></p>
+          <p>
+            <a href={phoneHref(phone)}>{phone}</a>
+          </p>
+          <p><a href={`mailto:${email}`}>{email}</a></p>
         </section>
         <section>
           <h2>Stay Informed.</h2>

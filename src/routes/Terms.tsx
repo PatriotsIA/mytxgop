@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { LegalPageLayout } from "../components/LegalPageLayout";
+import { phoneHref } from "../lib/contact";
 import { legalOrganization } from "../lib/legal";
 import { legalLinks } from "../lib/links";
 
@@ -11,16 +12,10 @@ export default function Terms() {
       title={`Terms of Service | ${name}`}
       description={`Terms and conditions for use of ${name} online services.`}
       canonicalPath={legalLinks.termsOfServicePath}
+      heroTitle="Terms & conditions"
+      heroIntro={`Terms for use of ${name} online services, including mobile communications disclosures used for political texting program vetting.`}
+      metaLabel={`Last revised: ${termsLastRevised}`}
     >
-      <p className="eyebrow">Legal</p>
-      <h1>Terms &amp; conditions</h1>
-      <p className="legal-intro">
-        Terms for use of {name} online services, including mobile communications disclosures used for political texting
-        program vetting.
-      </p>
-      <p>
-        <strong>Last revised:</strong> {termsLastRevised}
-      </p>
       <p>
         These Terms and Conditions (&quot;Terms&quot;) apply to your access to and use of the websites and other online
         services (collectively, the &quot;Services&quot;) provided by {name} (&quot;we,&quot; &quot;us,&quot; or
@@ -34,7 +29,7 @@ export default function Terms() {
       </p>
       <p>
         Questions: <a href={`mailto:${email}`}>{email}</a>, by phone at{" "}
-        <a href={`tel:${phone.replace(/\./g, "")}`}>{phone}</a>, or by mail to {mailingAddress}.
+        <a href={phoneHref(phone)}>{phone}</a>, or by mail to {mailingAddress}.
       </p>
 
       <h2>Privacy policy</h2>

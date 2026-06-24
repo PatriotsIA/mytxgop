@@ -1,10 +1,11 @@
 import { globalLinks } from "../lib/links";
+import { organizationContact } from "../lib/contact";
 import { countyPagePath } from "../lib/paths";
 import { slugifyCounty } from "../lib/slugifyCounty";
 import { getCountyCalendarFeedUrl } from "./calendarFeeds";
 import type { CountySite, StateSite } from "./countyTypes";
 
-const defaultContactEmail = import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mytexasgop.com";
+const defaultContactEmail = organizationContact.email;
 
 export function createDefaultCountySite(name: string, state: StateSite, fips: string): CountySite {
   const slug = slugifyCounty(name);
@@ -19,6 +20,7 @@ export function createDefaultCountySite(name: string, state: StateSite, fips: st
     fips,
     displayName,
     partyName: `${name} County GOP`,
+    phone: organizationContact.phone,
     email: defaultContactEmail,
     emailSettings: {
       contactToEmail: defaultContactEmail,

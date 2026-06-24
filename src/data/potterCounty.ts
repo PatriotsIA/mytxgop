@@ -19,7 +19,7 @@ export const potterCounty: Partial<CountySite> = {
   displayName: "Potter County",
   partyName: "Potter County GOP",
   primaryCity: "Amarillo",
-  phone: "806.351.0884",
+  phone: "(866) 756 1776",
   email: "info@mytexasgop.com",
   isCustom: true,
   emailSettings: {
