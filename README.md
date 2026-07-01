@@ -8,7 +8,18 @@ Responsive React + Vite + TypeScript SPA for county GOP sites across all 254 Tex
 npm install
 npm run dev
 npm run build
+npm run data:turnout
 ```
+
+## Show Up Meter Data
+
+The county "Show Up Meter" uses a static JSON file at `public/data/turnout/latest.json`, generated from U.S. Election Assistance Commission (EAVS) public datasets.
+
+- Regenerate data with `npm run data:turnout`.
+- The generator script is `scripts/generate-turnout-data.mjs`.
+- Frontend loading logic is in `src/lib/turnout.ts`, with client-side cache fallback via `localStorage`.
+- Current bundled coverage includes nationwide county turnout for federal general election cycles: 2018, 2020, 2022, and 2024.
+- 2025/2026 county turnout is decentralized across state systems; add state-specific official files as additional sources when available.
 
 ## County Data
 
