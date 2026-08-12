@@ -143,8 +143,8 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
   if (error) {
     return (
       <div className="calendar-error community-fallback">
-        <p>{error}</p>
-        <Button to={countyPagePath(county, "contact-us")} variant="secondary">Contact {county.displayName}</Button>
+        <p>{missingCommunityMessage}</p>
+        <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
       </div>
     );
   }
