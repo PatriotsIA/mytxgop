@@ -4,16 +4,25 @@ import { countyPath } from "../lib/paths";
 import { MegaNav } from "./MegaNav";
 import { MobileNav } from "./MobileNav";
 
-export function Header({ county }: { county: CountySite }) {
+type HeaderProps = {
+  county: CountySite;
+  brandTitle?: string;
+  brandEyebrow?: string;
+  showStateCountiesLink?: boolean;
+};
+
+export function Header({ county, brandTitle, brandEyebrow = "My Local GOP", showStateCountiesLink = true }: HeaderProps) {
+  const resolvedBrandTitle = brandTitle || county.partyName;
+
   return (
     <header className="site-header">
       <div className="container header-inner">
         <Link className="brand brand-text" to={countyPath(county)} aria-label={`${county.partyName} home`}>
-          <span className="brand-eyebrow">My Local GOP</span>
-          <span className="brand-title">{county.partyName}</span>
+          {brandEyebrow ? <span className="brand-eyebrow">{brandEyebrow}</span> : null}
+          <span className="brand-title">{resolvedBrandTitle}</span>
         </Link>
-        <MegaNav county={county} />
-        <MobileNav county={county} />
+        <MegaNav county={county} showStateCountiesLink={showStateCountiesLink} />
+        <MobileNav county={county} showStateCountiesLink={showStateCountiesLink} />
       </div>
     </header>
   );

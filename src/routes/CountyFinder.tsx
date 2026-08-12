@@ -1,8 +1,10 @@
-import { useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { counties, states } from "../data/counties";
+import { useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { counties, getCounty, states } from "../data/counties";
 import { legalLinks } from "../lib/links";
 import { countyPath, statePath } from "../lib/paths";
+import { Header } from "../components/Header";
+import { TopBar } from "../components/TopBar";
 import districtOfColumbiaFlag from "../assets/flags/district-of-columbia.svg";
 
 function normalizeSearch(value: string) {
@@ -44,93 +46,116 @@ function countyCountLabel(count: number) {
 const STATE_DIRECTORY_COUNT = 50;
 
 export default function CountyFinder() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [stateFilter, setStateFilter] = useState("all");
-  const countyResultsRef = useRef<HTMLDivElement>(null);
   const normalizedQuery = normalizeSearch(searchQuery);
+  const homeNavCounty = useMemo(() => getCounty("texas", "potter") || counties[0], []);
 
-  const filteredStates = useMemo(() => {
-    return states.filter((state) => matchesState(state, normalizedQuery));
-  }, [normalizedQuery]);
+  const filteredStates = states;
 
   const filteredCounties = useMemo(() => {
-    return counties.filter((county) => {
-      const matchesState = stateFilter === "all" || county.state.slug === stateFilter;
-      return matchesState && matchesCounty(county, normalizedQuery);
-    });
-  }, [normalizedQuery, stateFilter]);
+    return counties.filter((county) => matchesCounty(county, normalizedQuery));
+  }, [normalizedQuery]);
 
-  const selectedState = states.find((state) => state.slug === stateFilter);
   const countyCountsByState = useMemo(() => {
     return counties.reduce<Record<string, number>>((counts, county) => {
       counts[county.state.slug] = (counts[county.state.slug] || 0) + 1;
       return counts;
     }, {});
   }, []);
-  const hasCountyCriteria = stateFilter !== "all" || normalizedQuery.length > 0;
+  const hasCountyCriteria = normalizedQuery.length > 0;
   const shouldShowCounties = hasCountyCriteria;
-  const countyResultLabel = selectedState
-    ? `${selectedState.name} county pages`
-    : normalizedQuery
-      ? "Matching county pages"
-      : "County pages";
+  const countyResultLabel = normalizedQuery ? "Matching county pages" : "County pages";
+  const liveStateMatches = useMemo(() => (normalizedQuery ? states.filter((state) => matchesState(state, normalizedQuery)).slice(0, 6) : []), [normalizedQuery]);
+  const liveCountyMatches = useMemo(() => {
+    if (!normalizedQuery) return [];
+    return counties.filter((county) => matchesCounty(county, normalizedQuery)).slice(0, 10);
+  }, [normalizedQuery]);
 
-  function handleStateFilterChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    setStateFilter(event.target.value);
-    window.requestAnimationFrame(() => {
-      countyResultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+  function handleDirectorySearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!normalizedQuery) return;
+
+    const firstCounty = counties.find((county) => matchesCounty(county, normalizedQuery));
+    if (firstCounty) {
+      navigate(countyPath(firstCounty));
+      return;
+    }
+
+    const firstState = states.find((state) => matchesState(state, normalizedQuery));
+    if (firstState) {
+      navigate(statePath(firstState));
+    }
   }
 
   function clearCountyFilters() {
     setSearchQuery("");
-    setStateFilter("all");
   }
 
   return (
-    <main>
+    <>
+      <TopBar county={homeNavCounty} showWeather={false} />
+      <Header county={homeNavCounty} brandTitle="My Local GOP" brandEyebrow="" showStateCountiesLink={false} />
+      <main>
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">
             <p className="eyebrow">My Local GOP</p>
             <h1>Find your state or county Republican Party</h1>
-            <p>Search by state, abbreviation, county, or city. Narrow results to one state using the menu in the search bar.</p>
-            <label className="search-label" htmlFor="directory-search">Search states and counties</label>
-            <div className="finder-search-combo">
-              <select
-                id="state-filter"
-                className="finder-search-state"
-                value={stateFilter}
-                onChange={handleStateFilterChange}
-                aria-label="Filter by state"
-              >
-                <option value="all">All states</option>
-                {states.map((state) => (
-                  <option key={state.slug} value={state.slug}>
-                    {state.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                id="directory-search"
-                className="finder-search-input"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search Texas, TX, Potter, El Paso..."
-                type="search"
-              />
-            </div>
-            {selectedState ? (
-              <p className="filter-note">
-                Filtering counties in <strong>{selectedState.name}</strong>.
-              </p>
-            ) : null}
+            <p>Search by state, abbreviation, county, or city.</p>
           </div>
           <div className="finder-stat-card">
             <strong>{STATE_DIRECTORY_COUNT}</strong>
             <span>state directories</span>
             <strong>{counties.length}</strong>
             <span>county pages</span>
+          </div>
+        </div>
+        <div className="container">
+          <div className="finder-county-search-shell">
+            <p className="finder-county-search-title">Find a County</p>
+            <form onSubmit={handleDirectorySearchSubmit} className="finder-county-search-form">
+              <div className="finder-county-search-row">
+                <input
+                  id="directory-search"
+                  className="finder-county-search-input"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search by county or state (e.g., Orange, TX)"
+                  type="search"
+                />
+                <button type="submit" className="finder-county-search-button">Search</button>
+              </div>
+              {normalizedQuery ? (
+                <div className="finder-county-search-results" aria-live="polite">
+                  {liveStateMatches.map((state) => (
+                    <Link key={`live-state-${state.slug}`} className="finder-county-search-result" to={statePath(state)}>
+                      <div className="finder-county-search-result-main">
+                        <img src={stateFlagUrl(state.abbr)} alt={`${state.name} flag`} loading="lazy" />
+                        <strong>{state.name}</strong>
+                      </div>
+                      <span>State - {state.abbr}</span>
+                    </Link>
+                  ))}
+                  {liveCountyMatches.map((county) => (
+                    <Link
+                      key={`live-county-${county.state.slug}-${county.slug}`}
+                      className="finder-county-search-result"
+                      to={countyPath(county)}
+                    >
+                      <div className="finder-county-search-result-main">
+                        <img src={stateFlagUrl(county.state.abbr)} alt={`${county.state.name} flag`} loading="lazy" />
+                        <strong>{county.displayName}</strong>
+                      </div>
+                      <span>County - {county.state.name}</span>
+                    </Link>
+                  ))}
+                  {liveStateMatches.length === 0 && liveCountyMatches.length === 0 ? (
+                    <p className="empty-results">No places match the current search.</p>
+                  ) : null}
+                </div>
+              ) : null}
+            </form>
           </div>
         </div>
       </section>
@@ -150,9 +175,8 @@ export default function CountyFinder() {
               </Link>
             ))}
           </div>
-          {filteredStates.length === 0 ? <p className="empty-results">No states match “{searchQuery}”.</p> : null}
         </div>
-        <div ref={countyResultsRef} className="container result-summary" aria-live="polite">
+        <div className="container result-summary" aria-live="polite">
           <div>
             <strong>{countyResultLabel}</strong>
             <span>
@@ -160,11 +184,6 @@ export default function CountyFinder() {
                 ? `Showing ${filteredCounties.length} ${filteredCounties.length === 1 ? "result" : "results"}`
                 : "Search for a county or choose a state to show county pages."}
             </span>
-            {selectedState ? (
-              <Link className="inline-directory-link" to={statePath(selectedState)}>
-                View {selectedState.name} page
-              </Link>
-            ) : null}
           </div>
           {hasCountyCriteria ? (
             <button type="button" className="text-button" onClick={clearCountyFilters}>
@@ -189,6 +208,7 @@ export default function CountyFinder() {
           <Link to={legalLinks.termsOfServicePath}>Terms of Service</Link>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

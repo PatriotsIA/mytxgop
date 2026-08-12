@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { getCountyCalendarUrls } from "../data/calendarFeeds";
+import { getCountyCalendarUrls, getCountyMightySpaceId } from "../data/calendarFeeds";
 import type { CountySite } from "../data/countyTypes";
 import { fetchCalendarFeed, fetchCombinedCalendarFeeds, parseIcsEvents, type CalendarEvent } from "../lib/calendar";
+import { fetchSpaceEvents, mightyIsConfigured } from "../lib/mighty";
+import { countyPagePath } from "../lib/paths";
 import { Button } from "./Button";
 
 const pageSize = 3;
+const missingCommunityMessage =
+  "Live in This County and Want to get Involved & Informed? Contact us to Get Your County's Community Calendar & Community Feed set up.";
 
 function formatDate(event: CalendarEvent) {
   return event.start.toLocaleDateString(undefined, {
@@ -27,7 +31,9 @@ function formatTime(event: CalendarEvent) {
 
 export function EventCalendar({ county, mockIcsText }: { county: CountySite; mockIcsText?: string }) {
   const feedUrls = useMemo(() => getCountyCalendarUrls(county), [county]);
-  const hasCalendarFeed = Boolean(county.calendar.proxyUrl || feedUrls.length || mockIcsText);
+  const mightySpaceId = useMemo(() => getCountyMightySpaceId(county), [county]);
+  const canUseMighty = Boolean(mightySpaceId && mightyIsConfigured());
+  const hasCalendarFeed = Boolean(canUseMighty || county.calendar.proxyUrl || feedUrls.length || mockIcsText);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(hasCalendarFeed);
   const [error, setError] = useState("");
@@ -46,6 +52,40 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
       setLoading(true);
       setError("");
       try {
+        if (canUseMighty && mightySpaceId) {
+          const mightyEvents = await fetchSpaceEvents(mightySpaceId, 50);
+          const converted: CalendarEvent[] = [];
+          for (const event of mightyEvents) {
+            const startIso = event.starts_at || event.published_at || event.created_at;
+            if (!startIso) continue;
+            const start = new Date(startIso);
+            if (Number.isNaN(start.getTime())) continue;
+            const end = event.ends_at ? new Date(event.ends_at) : undefined;
+
+            converted.push({
+              id: `mighty-${event.id}-${start.toISOString()}`,
+              title: event.title || event.summary || "County event",
+              start,
+              end: end && !Number.isNaN(end.getTime()) ? end : undefined,
+              eventLink: event.permalink || event.link,
+              location: event.location,
+              description: event.description,
+            });
+          }
+
+          converted.sort((a, b) => a.start.getTime() - b.start.getTime());
+          const now = new Date();
+          const upcoming = converted.filter((event) => (event.end || event.start) >= now);
+
+          if (upcoming.length) {
+            if (active) {
+              setEvents(upcoming);
+              setPage(0);
+            }
+            return;
+          }
+        }
+
         let icsText = mockIcsText;
 
         if (!icsText && county.calendar.proxyUrl) {
@@ -81,14 +121,19 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
     return () => {
       active = false;
     };
-  }, [county.calendar.proxyUrl, feedUrls, hasCalendarFeed, mockIcsText]);
+  }, [canUseMighty, county.calendar.proxyUrl, feedUrls, hasCalendarFeed, mightySpaceId, mockIcsText]);
 
   const visibleEvents = useMemo(() => events.slice(page * pageSize, page * pageSize + pageSize), [events, page]);
   const hasPrevious = page > 0;
   const hasNext = (page + 1) * pageSize < events.length;
 
   if (!hasCalendarFeed) {
-    return <div className="calendar-empty">No calendar feed has been added for this county yet.</div>;
+    return (
+      <div className="calendar-empty community-fallback">
+        <p>{missingCommunityMessage}</p>
+        <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
+      </div>
+    );
   }
 
   if (loading) {
@@ -96,11 +141,21 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
   }
 
   if (error) {
-    return <div className="calendar-error">{error}</div>;
+    return (
+      <div className="calendar-error community-fallback">
+        <p>{error}</p>
+        <Button to={countyPagePath(county, "contact-us")} variant="secondary">Contact {county.displayName}</Button>
+      </div>
+    );
   }
 
   if (!events.length) {
-    return <div className="calendar-empty">No upcoming events are listed yet.</div>;
+    return (
+      <div className="calendar-empty community-fallback">
+        <p>{missingCommunityMessage}</p>
+        <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
+      </div>
+    );
   }
 
   return (

@@ -273,3 +273,14 @@ export function getCountyCalendarUrls(county: CountySite) {
   const mappedUrl = getCountyCalendarFeedUrl(county.state.slug, county.slug);
   return [...new Set([...configuredUrls, mappedUrl].filter(Boolean))] as string[];
 }
+
+export function getMightySpaceIdFromCalendarUrl(icsUrl?: string) {
+  if (!icsUrl) return undefined;
+  const normalized = icsUrl.startsWith("webcal://") ? `https://${icsUrl.slice("webcal://".length)}` : icsUrl;
+  const match = normalized.match(/\/spaces\/(\d+)\/calendar\.ics/i);
+  return match?.[1];
+}
+
+export function getCountyMightySpaceId(county: CountySite) {
+  return getCountyCalendarUrls(county).map((url) => getMightySpaceIdFromCalendarUrl(url)).find(Boolean);
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
 import { countyPagePath, statePath } from "../lib/paths";
 
-export function MobileNav({ county }: { county: CountySite }) {
+export function MobileNav({ county, showStateCountiesLink = true }: { county: CountySite; showStateCountiesLink?: boolean }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export function MobileNav({ county }: { county: CountySite }) {
       {open ? (
         <nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-menu">
           <Link to="/">Find Another County</Link>
-          <Link to={statePath(county.state)}>{county.state.name} Counties</Link>
+          {showStateCountiesLink ? <Link to={statePath(county.state)}>{county.state.name} Counties</Link> : null}
           <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
           <Link to={countyPagePath(county, "support-report")}>Support Report</Link>
           <Link to={countyPagePath(county, "contact-us")}>Contact Us</Link>

@@ -12,6 +12,12 @@
   box-shadow: none;
 }
 
+.community-fallback {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
 .calendar-error {
   border-color: #fecaca;
   color: #991b1b;
@@ -77,9 +83,52 @@
   font-size: 0.62rem;
 }
 
+.community-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.community-post-card {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  background: var(--color-white);
+  border: 1px solid #ded8cf;
+  border-radius: 5px;
+}
+
+.community-post-card h3 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: 0.86rem;
+}
+
+.community-post-card p {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+
+.community-post-date {
+  color: #51617a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.community-post-card .button {
+  justify-self: start;
+}
+
 @media (max-width: 640px) {
   .calendar-pagination {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .community-feed-grid {
+    grid-template-columns: 1fr;
   }
 }

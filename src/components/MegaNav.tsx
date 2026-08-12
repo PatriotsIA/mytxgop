@@ -5,7 +5,7 @@ import { countyPagePath, countyPath, statePath } from "../lib/paths";
 
 type OpenMenu = "elections" | "news" | null;
 
-export function MegaNav({ county }: { county: CountySite }) {
+export function MegaNav({ county, showStateCountiesLink = true }: { county: CountySite; showStateCountiesLink?: boolean }) {
   const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -37,7 +37,7 @@ export function MegaNav({ county }: { county: CountySite }) {
   return (
     <nav ref={navRef} className="desktop-nav" aria-label="Primary navigation">
       <Link to="/">Find Another County</Link>
-      <Link to={statePath(county.state)}>{county.state.abbr} Counties</Link>
+      {showStateCountiesLink ? <Link to={statePath(county.state)}>{county.state.abbr} Counties</Link> : null}
       <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
       <Link to={countyPagePath(county, "support-report")}>Support Report</Link>
       <div className={`nav-group${openMenu === "elections" ? " is-open" : ""}`}>

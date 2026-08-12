@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { CTAButtons } from "../components/CTAButtons";
+import { CountyCommunityFeed } from "../components/CountyCommunityFeed";
 import { CountyHero } from "../components/CountyHero";
 import { EventCalendar } from "../components/EventCalendar";
 import { Layout } from "../components/Layout";
@@ -40,6 +41,13 @@ export default function CountyHome() {
         </div>
         <div className="container submit-row">
           <Button to={getSubmitEventUrl(county)}>Submit an Event</Button>
+        </div>
+        <div className="container community-feed-section">
+          <div className="section-heading">
+            <h2>Community Feed</h2>
+            <p>Updates from your county's Mighty space community.</p>
+          </div>
+          <CountyCommunityFeed county={county} />
         </div>
       </section>
       <section className="vote-callout">

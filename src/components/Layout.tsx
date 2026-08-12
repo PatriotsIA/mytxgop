@@ -1,4 +1,5 @@
 import type { CountySite } from "../data/countyTypes";
+import { CountyBookmarkToast } from "./CountyBookmarkToast";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { TopBar } from "./TopBar";
@@ -10,6 +11,7 @@ export function Layout({ county, children }: { county: CountySite; children: Rea
       <Header county={county} />
       <main>{children}</main>
       <Footer county={county} />
+      <CountyBookmarkToast county={county} />
     </>
   );
 }

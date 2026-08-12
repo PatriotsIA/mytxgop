@@ -21,6 +21,16 @@ The county "Show Up Meter" uses a static JSON file at `public/data/turnout/lates
 - Current bundled coverage includes nationwide county turnout for federal general election cycles: 2018, 2020, 2022, and 2024.
 - 2025/2026 county turnout is decentralized across state systems; add state-specific official files as additional sources when available.
 
+## Mighty Community + Calendar
+
+County home pages can load Mighty community posts and events when configured.
+
+- Set `VITE_MIGHTY_API_BASE` to the deployed `mighty-api` origin.
+- Community feed requests: `/spaces/:spaceId/feed`.
+- Event requests: `/spaces/:spaceId/events`.
+- Space IDs are derived from county calendar feed URLs in `src/data/calendarFeeds.ts`.
+- Calendars fall back to ICS feeds and `/api/calendar` proxy support as before.
+
 ## County Data
 
 All county routes are powered by `src/data/counties.ts`. The registry uses the official 254-county list, generates slugs with `src/lib/slugifyCounty.ts`, and creates default county records with `src/data/defaultCountyFactory.ts`.

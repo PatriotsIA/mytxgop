@@ -2,16 +2,17 @@ import type { CountySite } from "../data/countyTypes";
 import { organizationContact, organizationPhone, phoneHref } from "../lib/contact";
 import { WeatherChip } from "./WeatherChip";
 
-export function TopBar({ county }: { county: CountySite }) {
+type TopBarProps = {
+  county: CountySite;
+  showWeather?: boolean;
+};
+
+export function TopBar({ county, showWeather = true }: TopBarProps) {
   const phone = organizationPhone(county.phone);
 
   return (
     <div className="topbar">
       <div className="container topbar-inner">
-        <strong>Meet Your Neighbors!</strong>
-        <a href={county.links.communityUrl} target="_blank" rel="noreferrer">
-          CHAT HERE
-        </a>
         <a href={phoneHref(phone)}>{phone}</a>
         <a href={`mailto:${county.email || organizationContact.email}`}>{county.email || organizationContact.email}</a>
         {county.links.donateUrl ? (
@@ -19,10 +20,10 @@ export function TopBar({ county }: { county: CountySite }) {
             Donate Now
           </a>
         ) : null}
-        <a className="community-link" href={county.links.communityUrl} target="_blank" rel="noreferrer">
+        <a className="topbar-community-button" href={county.links.communityUrl} target="_blank" rel="noreferrer">
           Join Our Interactive Community!
         </a>
-        <WeatherChip county={county} />
+        {showWeather ? <WeatherChip county={county} /> : null}
       </div>
     </div>
   );

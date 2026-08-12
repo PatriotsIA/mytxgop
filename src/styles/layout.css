@@ -1,18 +1,19 @@
 .topbar {
   background: #0b0b0c;
   color: var(--color-white);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .topbar-inner {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
   gap: 8px 16px;
-  padding: 5px 0;
+  padding: 8px 0;
+  min-height: 42px;
 }
 
 .topbar a {
@@ -24,12 +25,16 @@
   background: var(--color-red);
   margin-left: auto;
   border-radius: 2px;
-  padding: 0.38rem 0.75rem;
+  padding: 0.5rem 0.85rem;
   font-weight: 800;
 }
 
-.community-link {
+.topbar-community-button {
   color: #ffffff;
+  background: var(--color-blue);
+  border-radius: 2px;
+  padding: 0.5rem 0.85rem;
+  font-weight: 800;
 }
 
 .weather-chip {
@@ -43,7 +48,7 @@
 
 .site-header {
   position: absolute;
-  top: 28px;
+  top: 42px;
   left: 0;
   right: 0;
   z-index: 20;
@@ -205,7 +210,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
   gap: 40px;
   align-items: center;
-  padding: 96px 0 86px;
+  padding: 96px 0 42px;
 }
 
 .hero-copy {
@@ -248,6 +253,104 @@
 .finder-grid img {
   border-radius: 28px;
   box-shadow: 0 24px 70px rgba(7, 26, 51, 0.22);
+}
+
+.finder-county-search-shell {
+  margin: 0 auto 46px;
+  max-width: 1120px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(180deg, #8f1118, #b61b23);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+}
+
+.finder-county-search-shell .finder-county-search-title {
+  margin: 0 0 10px;
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.finder-county-search-form {
+  display: grid;
+  gap: 10px;
+}
+
+.finder-county-search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.finder-county-search-input {
+  min-height: 42px;
+  padding: 0 0.9rem;
+  color: var(--color-navy);
+  background: #ffffff;
+  border: 1px solid #b5b5b5;
+}
+
+.finder-county-search-button {
+  min-height: 42px;
+  padding: 0 1rem;
+  color: #ffffff;
+  background: #87262d;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.finder-county-search-results {
+  display: grid;
+  gap: 6px;
+}
+
+.finder-county-search-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0.48rem 0.65rem;
+  color: #ffffff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.finder-county-search-result-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.finder-county-search-result-main img {
+  width: 26px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.finder-county-search-result strong {
+  font-size: 0.78rem;
+  line-height: 1.1;
+}
+
+.finder-county-search-result span {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .page-hero {
@@ -364,6 +467,10 @@
   display: flex;
   justify-content: center;
   padding-top: 28px;
+}
+
+.community-feed-section {
+  margin-top: 38px;
 }
 
 .cta-strip {
@@ -801,6 +908,10 @@
   box-shadow: 0 8px 24px rgba(7, 26, 51, 0.08);
 }
 
+.directory-search-form {
+  width: min(100%, 560px);
+}
+
 .finder-search-state {
   flex: 0 0 auto;
   max-width: 11rem;
@@ -835,6 +946,20 @@
   background: transparent;
 }
 
+.finder-search-submit {
+  flex: 0 0 auto;
+  min-height: 54px;
+  padding: 0 1.1rem;
+  color: var(--color-white);
+  background: var(--color-red);
+  border: 0;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 .finder-search-input:focus,
 .finder-search-state:focus {
   outline: none;
@@ -843,6 +968,37 @@
 .finder-search-combo:focus-within {
   outline: 3px solid var(--color-blue-bright);
   outline-offset: 3px;
+}
+
+.directory-live-results {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 560px);
+  margin-top: 12px;
+}
+
+.directory-live-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0.55rem 0.8rem;
+  color: var(--color-navy);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+}
+
+.directory-live-result strong {
+  font-size: 0.8rem;
+}
+
+.directory-live-result span {
+  color: var(--color-gray-600);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .state-filter {
@@ -952,6 +1108,94 @@
 
 .directory-legal-links a:hover {
   color: var(--color-navy);
+}
+
+.bookmark-toast {
+  position: fixed;
+  right: max(1rem, calc((100vw - var(--max-width)) / 2));
+  bottom: 1rem;
+  z-index: 80;
+  width: min(380px, calc(100vw - 2rem));
+  padding: 1rem;
+  color: var(--color-gray-900);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(7, 23, 55, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(7, 26, 51, 0.22);
+}
+
+.bookmark-toast h2,
+.bookmark-toast p {
+  margin: 0;
+}
+
+.bookmark-toast .eyebrow {
+  margin-bottom: 0.45rem;
+  padding-right: 2rem;
+  font-size: 0.68rem;
+}
+
+.bookmark-toast h2 {
+  margin-bottom: 0.45rem;
+  padding-right: 2rem;
+  color: var(--color-navy);
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.bookmark-toast > p:not(.eyebrow) {
+  color: var(--color-gray-600);
+  line-height: 1.45;
+}
+
+.bookmark-toast-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-navy);
+  background: rgba(7, 23, 55, 0.08);
+  border: 0;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.bookmark-toast-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+}
+
+.bookmark-toast-actions .button {
+  min-height: 38px;
+  padding: 0.55rem 0.8rem;
+}
+
+.bookmark-toast-instructions {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  color: var(--color-gray-600);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.bookmark-toast-instructions p {
+  margin: 0;
+}
+
+.bookmark-toast-instructions strong {
+  color: var(--color-navy);
+}
+
+.bookmark-toast-status {
+  color: var(--color-blue);
+  font-weight: 800;
 }
 
 .county-link-card {
@@ -1103,6 +1347,10 @@
     width: 100%;
   }
 
+  .finder-county-search-shell {
+    margin-bottom: 28px;
+  }
+
   .cta-grid,
   .footer-grid,
   .state-grid,
@@ -1123,6 +1371,30 @@
   .hero-grid,
   .finder-grid {
     padding: 56px 0;
+  }
+
+  .finder-county-search-shell {
+    margin-top: -8px;
+    margin-bottom: 20px;
+  }
+
+  .finder-county-search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bookmark-toast {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    width: auto;
+  }
+
+  .bookmark-toast-actions {
+    flex-direction: column;
+  }
+
+  .bookmark-toast-actions .button {
+    width: 100%;
   }
 
   .site-header {
