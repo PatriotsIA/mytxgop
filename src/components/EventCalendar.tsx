@@ -67,9 +67,9 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
               title: event.title || event.summary || "County event",
               start,
               end: end && !Number.isNaN(end.getTime()) ? end : undefined,
-              eventLink: event.permalink || event.link,
-              location: event.location,
-              description: event.description,
+              eventLink: event.permalink || event.link || undefined,
+              location: event.location || undefined,
+              description: event.description || undefined,
             });
           }
 

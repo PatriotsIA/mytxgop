@@ -22,6 +22,7 @@ export const potterCounty: Partial<CountySite> = {
   phone: "(866) 756 1776",
   email: "info@mytexasgop.com",
   isCustom: true,
+  mightySpaceId: "16479206",
   emailSettings: {
     contactToEmail: "info@mytexasgop.com",
     eventSubmissionToEmail: "info@mytexasgop.com",

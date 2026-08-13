@@ -69,6 +69,12 @@ const statesByAbbrSlug = new Map(states.map((state) => [state.abbr.toLowerCase()
 
 const countyOverrides: Record<string, Partial<CountySite>> = {
   "texas/potter": potterCounty,
+  "texas/randall": {
+    mightySpaceId: "22327304",
+  },
+  "texas/ector": {
+    mightySpaceId: "22327334",
+  },
 };
 
 function withOverrides(county: CountySite): CountySite {

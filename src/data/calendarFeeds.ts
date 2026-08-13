@@ -282,5 +282,5 @@ export function getMightySpaceIdFromCalendarUrl(icsUrl?: string) {
 }
 
 export function getCountyMightySpaceId(county: CountySite) {
-  return getCountyCalendarUrls(county).map((url) => getMightySpaceIdFromCalendarUrl(url)).find(Boolean);
+  return county.mightySpaceId || getCountyCalendarUrls(county).map((url) => getMightySpaceIdFromCalendarUrl(url)).find(Boolean);
 }

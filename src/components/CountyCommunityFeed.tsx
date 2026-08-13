@@ -12,6 +12,11 @@ function stripHtml(value = "") {
   return value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function truncateWords(value: string, maxWords: number) {
+  const words = value.split(/\s+/).filter(Boolean);
+  return words.length > maxWords ? `${words.slice(0, maxWords).join(" ")}…` : value;
+}
+
 function formatPostDate(post: MightyPost) {
   const value = post.published_at || post.updated_at || post.created_at;
   if (!value) return "Recent post";
@@ -42,11 +47,11 @@ export function CountyCommunityFeed({ county }: { county: CountySite }) {
       }
 
       try {
-        const results = await fetchSpaceFeed(spaceId, 20);
+        const results = await fetchSpaceFeed(spaceId, 40);
         if (!active) return;
         setState({
           loadedKey: requestKey,
-          posts: results.filter((post) => stripHtml(post.title || post.summary || post.description).length > 0).slice(0, 8),
+          posts: results,
           fetchFailed: false,
         });
       } catch {
@@ -80,12 +85,15 @@ export function CountyCommunityFeed({ county }: { county: CountySite }) {
 
   return (
     <div className="community-feed-grid">
-      {posts.map((post) => {
-        const title = stripHtml(post.title || post.summary || post.description || "County community update");
-        const preview = stripHtml(post.summary || post.description || "");
+      {posts.slice(0, 8).map((post) => {
+        const postText = stripHtml(post.title || post.summary || post.description || "");
+        const title = truncateWords(postText || "Community update", 12);
+        const preview = truncateWords(stripHtml(post.description || post.summary || ""), 45);
+        const image = post.images?.find((url): url is string => Boolean(url));
 
         return (
           <article key={String(post.id)} className="community-post-card">
+            {image ? <img className="community-post-image" src={image} alt="" loading="lazy" /> : null}
             <h3>{title}</h3>
             <p className="community-post-date">{formatPostDate(post)}</p>
             {preview ? <p>{preview}</p> : null}

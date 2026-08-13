@@ -39,6 +39,7 @@ export type CountySite = {
   phone?: string;
   email?: string;
   isCustom?: boolean;
+  mightySpaceId?: string;
   emailSettings?: {
     contactToEmail?: string;
     eventSubmissionToEmail?: string;

@@ -92,10 +92,19 @@
 .community-post-card {
   display: grid;
   gap: 8px;
+  align-content: start;
+  overflow: hidden;
   padding: 16px 18px;
   background: var(--color-white);
   border: 1px solid #ded8cf;
   border-radius: 5px;
+}
+
+.community-post-image {
+  width: calc(100% + 36px);
+  height: 180px;
+  margin: -16px -18px 4px;
+  object-fit: cover;
 }
 
 .community-post-card h3 {

@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { countyCalendarFeedsBySlug, type CountyCalendarSlug } from "./src/data/calendarFeeds";
 
@@ -62,6 +62,22 @@ function calendarApiDevMiddleware(): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [calendarApiDevMiddleware(), react()],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const mightyApiBase = env.VITE_MIGHTY_API_BASE?.replace(/\/+$/, "");
+
+  return {
+    plugins: [calendarApiDevMiddleware(), react()],
+    server: mightyApiBase
+      ? {
+          proxy: {
+            "/api/mighty": {
+              target: mightyApiBase,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/api\/mighty/, ""),
+            },
+          },
+        }
+      : undefined,
+  };
 });

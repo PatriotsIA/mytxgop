@@ -1,4 +1,5 @@
-const mightyBase = import.meta.env.VITE_MIGHTY_API_BASE?.replace(/\/$/, "");
+const configuredMightyBase = import.meta.env.VITE_MIGHTY_API_BASE?.replace(/\/+$/, "");
+const mightyBase = import.meta.env.DEV && configuredMightyBase ? "/api/mighty" : configuredMightyBase;
 
 type MightyListResponse<T> = {
   items?: T[];
@@ -6,27 +7,27 @@ type MightyListResponse<T> = {
 
 export type MightyPost = {
   id: number | string;
-  title?: string;
-  summary?: string;
-  description?: string;
+  title?: string | null;
+  summary?: string | null;
+  description?: string | null;
   permalink?: string;
-  images?: string[];
-  published_at?: string;
+  images?: (string | null)[];
+  published_at?: string | null;
   updated_at?: string;
   created_at?: string;
 };
 
 export type MightyEvent = {
   id: number | string;
-  title?: string;
-  summary?: string;
-  description?: string;
+  title?: string | null;
+  summary?: string | null;
+  description?: string | null;
   permalink?: string;
-  starts_at?: string;
-  ends_at?: string;
-  location?: string;
-  link?: string;
-  published_at?: string;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  location?: string | null;
+  link?: string | null;
+  published_at?: string | null;
   created_at?: string;
 };
 
