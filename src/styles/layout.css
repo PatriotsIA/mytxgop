@@ -13,7 +13,23 @@
   justify-content: flex-start;
   gap: 8px 16px;
   padding: 8px 0;
-  min-height: 42px;
+  min-height: 45px;
+}
+
+.topbar-contact,
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px 16px;
+  min-width: 0;
+}
+
+.topbar-contact a {
+  overflow-wrap: anywhere;
+}
+
+.topbar-actions {
+  margin-left: auto;
 }
 
 .topbar a {
@@ -23,7 +39,6 @@
 
 .topbar-donate {
   background: var(--color-red);
-  margin-left: auto;
   border-radius: 2px;
   padding: 0.5rem 0.85rem;
   font-weight: 800;
@@ -48,7 +63,7 @@
 
 .site-header {
   position: absolute;
-  top: 42px;
+  top: 45px;
   left: 0;
   right: 0;
   z-index: 20;
@@ -59,6 +74,7 @@
 }
 
 .header-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,6 +89,7 @@
 }
 
 .brand-text {
+  min-width: 0;
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
@@ -135,7 +152,8 @@
   display: none;
   grid-template-columns: repeat(2, minmax(210px, 1fr));
   gap: 12px 20px;
-  min-width: 540px;
+  min-width: min(540px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
   padding: 26px;
   background: var(--color-white);
   border: 1px solid var(--color-gray-200);
@@ -163,6 +181,7 @@
 }
 
 .hamburger {
+  min-height: 44px;
   border: 1px solid var(--color-gray-200);
   background: var(--color-white);
   border-radius: 999px;
@@ -172,11 +191,15 @@
 
 .mobile-menu {
   position: absolute;
-  left: 16px;
-  right: 16px;
-  top: 82px;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 100;
   display: grid;
   gap: 6px;
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 18px;
   background: var(--color-white);
   border: 1px solid var(--color-gray-200);
@@ -185,9 +208,13 @@
 }
 
 .mobile-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.65rem;
   text-decoration: none;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .hero-section,
@@ -1027,6 +1054,7 @@
 
 .result-summary {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: space-between;
   align-items: center;
@@ -1321,6 +1349,38 @@
 }
 
 @media (max-width: 980px) {
+  .topbar-inner {
+    flex-wrap: wrap;
+    min-height: 0;
+  }
+
+  .topbar-contact {
+    flex: 1 1 280px;
+  }
+
+  .topbar-actions {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .site-header {
+    position: relative;
+    top: auto;
+  }
+
+  .header-inner {
+    gap: 16px;
+  }
+
+  .brand-text {
+    max-width: calc(100% - 84px);
+  }
+
+  .brand-title {
+    overflow-wrap: anywhere;
+  }
+
   .desktop-nav {
     display: none;
   }
@@ -1336,6 +1396,15 @@
   .voter-grid,
   .chairman-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-grid,
+  .finder-grid {
+    padding-top: 24px;
+  }
+
+  .page-hero {
+    padding: 24px 0 48px;
   }
 
   .hero-copy {
@@ -1363,14 +1432,90 @@
   }
 
   .about-leadership-section {
-    padding-top: 96px;
+    padding-top: 24px;
   }
 }
 
 @media (max-width: 640px) {
+  .topbar {
+    font-size: 0.65rem;
+  }
+
+  .topbar-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    justify-content: stretch;
+    justify-items: center;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .topbar-contact {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    justify-self: center;
+    width: min(100%, 380px);
+    text-align: center;
+  }
+
+  .topbar-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    justify-items: center;
+    place-self: stretch;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .topbar-community-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: min(100%, 280px);
+    text-align: center;
+  }
+
+  .topbar-donate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: min(100%, 280px);
+    text-align: center;
+  }
+
+  .weather-chip {
+    justify-content: center;
+    justify-self: center;
+    min-width: 0;
+  }
+
+  .header-inner {
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .brand-title {
+    font-size: clamp(1rem, 5vw, 1.25rem);
+  }
+
+  .hamburger {
+    flex: 0 0 auto;
+    min-height: 42px;
+  }
+
+  .mobile-menu {
+    max-height: calc(100vh - 140px);
+    padding: 12px;
+  }
+
   .hero-grid,
   .finder-grid {
-    padding: 56px 0;
+    padding: 16px 0 40px;
   }
 
   .finder-county-search-shell {
@@ -1380,6 +1525,14 @@
 
   .finder-county-search-row {
     grid-template-columns: 1fr;
+  }
+
+  .finder-county-search-result {
+    align-items: flex-start;
+  }
+
+  .finder-county-search-result strong {
+    overflow-wrap: anywhere;
   }
 
   .bookmark-toast {
@@ -1398,7 +1551,6 @@
   }
 
   .site-header {
-    position: static;
     background: var(--color-white);
   }
 

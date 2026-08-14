@@ -1,13 +1,37 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import type { CountySite } from "../data/countyTypes";
 import { countyPagePath, statePath } from "../lib/paths";
 
 export function MobileNav({ county, showStateCountiesLink = true }: { county: CountySite; showStateCountiesLink?: boolean }) {
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
 
   return (
-    <div className="mobile-nav">
+    <div className="mobile-nav" ref={navRef}>
       <button
         type="button"
         className="hamburger"
@@ -18,7 +42,14 @@ export function MobileNav({ county, showStateCountiesLink = true }: { county: Co
         Menu
       </button>
       {open ? (
-        <nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-menu">
+        <nav
+          id="mobile-menu"
+          aria-label="Mobile navigation"
+          className="mobile-menu"
+          onClick={(event) => {
+            if ((event.target as Element).closest("a")) setOpen(false);
+          }}
+        >
           <Link to="/">Find Another County</Link>
           {showStateCountiesLink ? <Link to={statePath(county.state)}>{county.state.name} Counties</Link> : null}
           <Link to={countyPagePath(county, "about")}>About / Leadership</Link>
