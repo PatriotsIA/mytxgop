@@ -1,5 +1,5 @@
 export const organizationContact = {
-  email: import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mytexasgop.com",
+  email: import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mylocalgop.com",
   phone: "(866) 756 1776",
   mailingAddress: "1000 S. Jefferson Street, Amarillo, TX 79101",
 } as const;

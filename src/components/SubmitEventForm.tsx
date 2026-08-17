@@ -73,7 +73,7 @@ export function SubmitEventForm({ county }: { county: CountySite }) {
       await sendEventSubmissionEmail({
         countyName: county.displayName,
         countySlug: county.slug,
-        toEmail: county.emailSettings?.eventSubmissionToEmail || import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mytexasgop.com",
+        toEmail: county.emailSettings?.eventSubmissionToEmail || import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mylocalgop.com",
         submitterName: sanitizeText(form.submitterName),
         submitterEmail: sanitizeText(form.submitterEmail),
         submitterPhone: sanitizeText(form.submitterPhone),

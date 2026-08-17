@@ -57,7 +57,7 @@ export function ContactForm({ county }: { county: CountySite }) {
       await sendContactEmail({
         countyName: county.displayName,
         countySlug: county.slug,
-        toEmail: county.emailSettings?.contactToEmail || import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mytexasgop.com",
+        toEmail: county.emailSettings?.contactToEmail || import.meta.env.VITE_DEFAULT_CONTACT_TO_EMAIL || "info@mylocalgop.com",
         fromName: sanitizeText(form.name),
         fromEmail: sanitizeText(form.email),
         phone: sanitizeText(form.phone),

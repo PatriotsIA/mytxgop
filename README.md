@@ -79,10 +79,10 @@ This app uses EmailJS from the browser for contact and event submission forms. I
 VITE_EMAILJS_PUBLIC_KEY=
 VITE_EMAILJS_SERVICE_ID=
 VITE_EMAILJS_TEMPLATE_ID=
-VITE_DEFAULT_CONTACT_TO_EMAIL=info@mytexasgop.com
+VITE_DEFAULT_CONTACT_TO_EMAIL=info@mylocalgop.com
 ```
 
-6. Configure allowed domains in EmailJS for `localhost`, `mytexasgop.com`, and any preview domains.
+6. Configure allowed domains in EmailJS for `localhost`, `mylocalgop.com`, and any preview domains.
 7. Run `npm run dev`.
 8. Test `/potter/contact-us` and `/potter/submit-event`.
 

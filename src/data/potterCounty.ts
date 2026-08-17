@@ -20,12 +20,12 @@ export const potterCounty: Partial<CountySite> = {
   partyName: "Potter County GOP",
   primaryCity: "Amarillo",
   phone: "(866) 756 1776",
-  email: "info@mytexasgop.com",
+  email: "info@mylocalgop.com",
   isCustom: true,
   mightySpaceId: "16479206",
   emailSettings: {
-    contactToEmail: "info@mytexasgop.com",
-    eventSubmissionToEmail: "info@mytexasgop.com",
+    contactToEmail: "info@mylocalgop.com",
+    eventSubmissionToEmail: "info@mylocalgop.com",
   },
   hero: {
     eyebrow: "Meet Your Neighbors",

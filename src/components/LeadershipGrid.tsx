@@ -20,7 +20,7 @@ export function LeadershipGrid({ county }: { county: CountySite }) {
             <p className="role">{chairman.role}</p>
             {chairman.bio ? <p>{chairman.bio}</p> : null}
             <div className="leader-socials" aria-label={`${chairman.name} social links`}>
-              <a href={`mailto:${county.email || "info@mytexasgop.com"}`} aria-label="Email">E</a>
+              <a href={`mailto:${county.email || "info@mylocalgop.com"}`} aria-label="Email">E</a>
               <a href={county.links.communityUrl} target="_blank" rel="noreferrer" aria-label="Community">C</a>
               <a href={countyPagePath(county, "contact-us")} aria-label="Contact">T</a>
             </div>
