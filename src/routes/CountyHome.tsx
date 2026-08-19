@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { CTAButtons } from "../components/CTAButtons";
 import { CountyCommunityFeed } from "../components/CountyCommunityFeed";
 import { CountyHero } from "../components/CountyHero";
+import { CountyWeatherPanel } from "../components/CountyWeatherPanel";
 import { EventCalendar } from "../components/EventCalendar";
 import { Layout } from "../components/Layout";
 import { OperationShowUp } from "../components/OperationShowUp";
@@ -29,6 +30,11 @@ export default function CountyHome() {
   return (
     <Layout county={county}>
       <CountyHero county={county} />
+      <section className="county-home-weather">
+        <div className="container">
+          <CountyWeatherPanel county={county} compact />
+        </div>
+      </section>
       <section className="home-overview">
         <div className="container home-overview-grid">
           <OperationShowUp county={county} />

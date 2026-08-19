@@ -31,6 +31,16 @@ County home pages can load Mighty community posts and events when configured.
 - Space IDs are derived from county calendar feed URLs in `src/data/calendarFeeds.ts`.
 - Calendars fall back to ICS feeds and `/api/calendar` proxy support as before.
 
+## County Weather + Alerts
+
+County home and weather pages load current conditions, forecasts, and active county-zone alerts from the National Weather Service.
+
+- The frontend calls the deployed API at `/weather?lat={latitude}&lon={longitude}` using `VITE_MIGHTY_API_BASE`.
+- County coordinates come from the U.S. Census Bureau 2025 National Counties Gazetteer file, with the 2021 file retained for legacy Connecticut county coverage, bundled at `public/data/county-centroids.json`.
+- `mighty-api` sets the required identifying NWS `User-Agent`, validates coordinates, normalizes responses, and caches weather for five minutes.
+- NWS weather data is free and does not require an API key.
+- After deploying the updated `mighty-api`, redeploy this frontend so the existing API base environment variable serves the new route.
+
 ## County Data
 
 All county routes are powered by `src/data/counties.ts`. The registry uses the official 254-county list, generates slugs with `src/lib/slugifyCounty.ts`, and creates default county records with `src/data/defaultCountyFactory.ts`.
