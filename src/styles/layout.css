@@ -444,6 +444,15 @@
   line-height: 1.6;
 }
 
+.show-up-meter .show-up-meter-attribution {
+  margin-top: 3px;
+  color: #4f5f75;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .show-up-meter-track {
   width: 100%;
   height: 10px;

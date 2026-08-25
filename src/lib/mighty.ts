@@ -33,12 +33,12 @@ export type MightyEvent = {
 
 async function fetchJson<T>(path: string) {
   if (!mightyBase) {
-    throw new Error("Mighty API base URL is not configured.");
+    throw new Error("Our Community service is not configured.");
   }
 
   const response = await fetch(`${mightyBase}${path}`, { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(`Mighty API request failed: ${response.status}`);
+    throw new Error(`Our Community request failed: ${response.status}`);
   }
 
   return (await response.json()) as T;

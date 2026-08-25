@@ -50,8 +50,8 @@ export default function CountyHome() {
         </div>
         <div className="container community-feed-section">
           <div className="section-heading">
-            <h2>Community Feed</h2>
-            <p>Updates from your county's Mighty space community.</p>
+            <h2>Our Community</h2>
+            <p>Updates from Our Community in your county.</p>
           </div>
           <CountyCommunityFeed county={county} />
         </div>
