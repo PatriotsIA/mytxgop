@@ -105,6 +105,7 @@ export const potterCounty: Partial<CountySite> = {
         name: "Judge Steven Denny",
         party: "R",
         termEnds: "2026",
+        localGopContribution: "$100",
         contact: { phone: "806.379.2370", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
       },
       {

@@ -28,6 +28,12 @@ function OfficialContact({ official }: { official: SupportReportOfficial }) {
   );
 }
 
+function contributionAmount(official: SupportReportOfficial) {
+  const value = official.localGopContribution?.replace(/[^0-9.-]/g, "");
+  const amount = value ? Number(value) : 0;
+  return Number.isFinite(amount) ? amount : 0;
+}
+
 export default function CountySupportReport() {
   const county = useCounty();
   const redirectTo = useCanonicalCountyPath("support-report");
@@ -47,6 +53,9 @@ export default function CountySupportReport() {
 
   const report = county.supportReport;
   const officials = report?.officials ?? [];
+  const officialsByContribution = [...officials].sort(
+    (first, second) => contributionAmount(second) - contributionAmount(first),
+  );
 
   return (
     <Layout county={county}>
@@ -95,7 +104,7 @@ export default function CountySupportReport() {
                   </tr>
                 </thead>
                 <tbody>
-                  {officials.map((official) => (
+                  {officialsByContribution.map((official) => (
                     <tr key={`${official.office}-${official.name}`}>
                       <td>
                         <strong>{official.office}</strong>
