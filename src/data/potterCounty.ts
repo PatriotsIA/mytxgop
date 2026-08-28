@@ -70,7 +70,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "47th District Court",
         jurisdiction: "Potter County",
-        name: "Judge Dee Johnson",
+        name: "Dee Johnson",
         party: "R",
         termEnds: "2026",
         localGopContribution: "$100",
@@ -79,7 +79,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "108th District Court",
         jurisdiction: "Potter County",
-        name: "Judge Tim Pirtle",
+        name: "Tim Pirtle",
         party: "R",
         termEnds: "2028",
         contact: { phone: "806.379.2355", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -87,7 +87,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "181st District Court",
         jurisdiction: "Potter County",
-        name: "Judge Titiana Frausto",
+        name: "Titiana Frausto",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.379.2360", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -95,7 +95,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "251st District Court",
         jurisdiction: "Potter County",
-        name: "Judge Ana Estevez",
+        name: "Ana Estevez",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.379.2365", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -103,7 +103,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "320th District Court",
         jurisdiction: "Potter County",
-        name: "Judge Steven Denny",
+        name: "Steven Denny",
         party: "R",
         termEnds: "2026",
         localGopContribution: "$100",
@@ -177,7 +177,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "County Court at Law #1",
         jurisdiction: "Potter County",
-        name: "Judge Walt Weaver",
+        name: "Walt Weaver",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.379.2375", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -185,7 +185,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "County Court at Law #2",
         jurisdiction: "Potter County",
-        name: "Judge Matthew Hand",
+        name: "Matthew Hand",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.379.2380", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -217,7 +217,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "Justice of the Peace, Precinct 1",
         jurisdiction: "Potter County",
-        name: "Judge Debbie Horn",
+        name: "Debbie Horn",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.349.4880", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -225,7 +225,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "Justice of the Peace, Precinct 2",
         jurisdiction: "Potter County",
-        name: "Judge Robert Taylor",
+        name: "Robert Taylor",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.379.2390", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -233,7 +233,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "Justice of the Peace, Precinct 3",
         jurisdiction: "Potter County",
-        name: "Judge Gary Jackson",
+        name: "Gary Jackson",
         party: "R",
         termEnds: "2026",
         contact: { phone: "806.355.3070", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
@@ -241,7 +241,7 @@ export const potterCounty: Partial<CountySite> = {
       {
         office: "Justice of the Peace, Precinct 4",
         jurisdiction: "Potter County",
-        name: "Judge Thomas Jones",
+        name: "Thomas Jones",
         party: "D",
         termEnds: "2026",
         contact: { phone: "806.379.2817", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
