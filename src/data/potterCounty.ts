@@ -73,6 +73,7 @@ export const potterCounty: Partial<CountySite> = {
         name: "Judge Dee Johnson",
         party: "R",
         termEnds: "2026",
+        localGopContribution: "$100",
         contact: { phone: "806.379.2350", website: "https://www.co.potter.tx.us/page/Elected.Officials" },
       },
       {
