@@ -1,3 +1,4 @@
+import { VoterIncidentNotice } from "./VoterIncidentNotice";
 import type { CountySite } from "../data/countyTypes";
 import { CountyBookmarkToast } from "./CountyBookmarkToast";
 import { Footer } from "./Footer";
@@ -9,7 +10,7 @@ export function Layout({ county, children }: { county: CountySite; children: Rea
     <>
       <TopBar county={county} />
       <Header county={county} />
-      <main>{children}</main>
+      <main>{county.state.abbr === "TX" && <div className="container"><VoterIncidentNotice /></div>}{children}</main>
       <Footer county={county} />
       <CountyBookmarkToast county={county} />
     </>

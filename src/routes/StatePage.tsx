@@ -1,3 +1,4 @@
+import { VoterIncidentNotice } from "../components/VoterIncidentNotice";
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getCountiesForState, getCountyBySlug, getStateBySlug } from "../data/counties";
@@ -40,6 +41,7 @@ export default function StatePage() {
 
   return (
     <main>
+      {state.abbr === "TX" && <div className="container"><VoterIncidentNotice /></div>}
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">
