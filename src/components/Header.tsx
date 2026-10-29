@@ -6,16 +6,17 @@ import { MobileNav } from "./MobileNav";
 
 type HeaderProps = {
   county: CountySite;
+  inFlow?: boolean;
   brandTitle?: string;
   brandEyebrow?: string;
   showStateCountiesLink?: boolean;
 };
 
-export function Header({ county, brandTitle, brandEyebrow = "My Local GOP", showStateCountiesLink = true }: HeaderProps) {
+export function Header({ county, brandTitle, brandEyebrow = "My Local GOP", showStateCountiesLink = true, inFlow = false }: HeaderProps) {
   const resolvedBrandTitle = brandTitle || county.partyName;
 
   return (
-    <header className="site-header">
+    <header className={`site-header${inFlow ? " site-header-in-flow" : ""}`}>
       <div className="container header-inner">
         <Link className="brand brand-text" to={countyPath(county)} aria-label={`${county.partyName} home`}>
           {brandEyebrow ? <span className="brand-eyebrow">{brandEyebrow}</span> : null}

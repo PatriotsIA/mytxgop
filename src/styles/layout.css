@@ -73,6 +73,11 @@
   backdrop-filter: blur(8px);
 }
 
+.site-header.site-header-in-flow {
+  position: relative;
+  top: auto;
+}
+
 .header-inner {
   position: relative;
   display: flex;
