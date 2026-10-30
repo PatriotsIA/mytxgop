@@ -41,7 +41,7 @@ export default function StatePage() {
 
   return (
     <main>
-      {state.abbr === "TX" && <div className="container"><VoterIncidentNotice /></div>}
+      <div className="container"><VoterIncidentNotice /></div>
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">

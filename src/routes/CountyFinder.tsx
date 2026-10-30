@@ -1,3 +1,4 @@
+import { VoterIncidentNotice } from "../components/VoterIncidentNotice";
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { counties, getCounty, states } from "../data/counties";
@@ -95,8 +96,9 @@ export default function CountyFinder() {
   return (
     <>
       <TopBar county={homeNavCounty} showWeather={false} />
-      <Header county={homeNavCounty} brandTitle="My Local GOP" brandEyebrow="" showStateCountiesLink={false} />
+      <Header county={homeNavCounty} brandTitle="My Local GOP" brandEyebrow="" showStateCountiesLink={false} inFlow />
       <main>
+      <div className="container"><VoterIncidentNotice /></div>
       <section className="finder-hero">
         <div className="container finder-grid">
           <div className="hero-panel">
