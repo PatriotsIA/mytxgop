@@ -9,6 +9,7 @@ const CountyAbout = lazy(() => import("./routes/CountyAbout"));
 const CountyContact = lazy(() => import("./routes/CountyContact"));
 const CountySubmitEvent = lazy(() => import("./routes/CountySubmitEvent"));
 const CountySupportReport = lazy(() => import("./routes/CountySupportReport"));
+const CountyStatement = lazy(() => import("./routes/CountyStatement"));
 const CountyWeather = lazy(() => import("./routes/CountyWeather"));
 const CountyNews = lazy(() => import("./routes/CountyNews"));
 const LegacyCountyRedirect = lazy(() => import("./routes/LegacyCountyRedirect"));
@@ -38,6 +39,7 @@ function App() {
         <Route path="/:stateSlug/:countySlug/contact-us" element={<CountyContact />} />
         <Route path="/:stateSlug/:countySlug/submit-event" element={<CountySubmitEvent />} />
         <Route path="/:stateSlug/:countySlug/support-report" element={<CountySupportReport />} />
+        <Route path="/:stateSlug/:countySlug/statement" element={<CountyStatement />} />
         <Route path="/:stateSlug/:countySlug/weather" element={<CountyWeather />} />
         <Route path="/:stateSlug/:countySlug/local-news" element={<CountyNews />} />
         <Route path="/:stateSlug/:countySlug/national-news" element={<CountyNews />} />

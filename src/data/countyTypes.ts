@@ -22,6 +22,23 @@ export type SupportReportOfficial = {
   contributionNote?: string;
 };
 
+/** Paragraphs may mark **bold**, _italic_ and [link text](url). */
+export type CountyStatement = {
+  eyebrow: string;
+  title: string;
+  deck: string;
+  paragraphs: string[];
+  contact: string;
+  signature: string[];
+  document: {
+    href: string;
+    title: string;
+    citation: string;
+    pages: number;
+  };
+  sources: { label: string; href: string }[];
+};
+
 export type StateSite = {
   name: string;
   abbr: string;
@@ -93,4 +110,5 @@ export type CountySite = {
     lastReviewed?: string;
     officials: SupportReportOfficial[];
   };
+  statement?: CountyStatement;
 };
