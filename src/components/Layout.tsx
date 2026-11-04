@@ -10,7 +10,7 @@ export function Layout({ county, children }: { county: CountySite; children: Rea
     <>
       <TopBar county={county} />
       <Header county={county} inFlow />
-      <main><div className="container"><VoterIncidentNotice /></div>{children}</main>
+      <main><div className="container"><VoterIncidentNotice showMidterms={county.state.abbr === "TX" && county.slug === "potter"} /></div>{children}</main>
       <Footer county={county} />
       <CountyBookmarkToast county={county} />
     </>

@@ -10,6 +10,7 @@ const CountyContact = lazy(() => import("./routes/CountyContact"));
 const CountySubmitEvent = lazy(() => import("./routes/CountySubmitEvent"));
 const CountySupportReport = lazy(() => import("./routes/CountySupportReport"));
 const CountyStatement = lazy(() => import("./routes/CountyStatement"));
+const MidtermsRelease = lazy(() => import("./routes/MidtermsRelease"));
 const CountyWeather = lazy(() => import("./routes/CountyWeather"));
 const CountyNews = lazy(() => import("./routes/CountyNews"));
 const LegacyCountyRedirect = lazy(() => import("./routes/LegacyCountyRedirect"));
@@ -22,6 +23,9 @@ function App() {
     <Suspense fallback={<div className="route-loading">Loading My Local GOP...</div>}>
       <GoogleAnalytics />
       <Routes>
+        <Route path="/2026-midterms" element={<Navigate to="/tx/potter/2026-midterms" replace />} />
+        <Route path="/texas/potter/2026-midterms" element={<Navigate to="/tx/potter/2026-midterms" replace />} />
+        <Route path="/tx/potter/2026-midterms" element={<MidtermsRelease />} />
         <Route path="/" element={<CountyFinder />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
