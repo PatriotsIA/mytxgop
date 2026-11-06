@@ -34,6 +34,7 @@ export function CountyCommunityFeed({ county }: { county: CountySite }) {
     posts: [],
     fetchFailed: false,
   });
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -64,7 +65,7 @@ export function CountyCommunityFeed({ county }: { county: CountySite }) {
     return () => {
       active = false;
     };
-  }, [canFetch, requestKey, spaceId]);
+  }, [canFetch, requestKey, spaceId, refresh]);
 
   const loading = state.loadedKey !== requestKey;
   const posts = state.posts;
@@ -74,13 +75,27 @@ export function CountyCommunityFeed({ county }: { county: CountySite }) {
     return <div className="calendar-empty">Loading county community feed...</div>;
   }
 
-  if (fetchFailed || !posts.length) {
+  if (!canFetch) {
     return (
       <div className="calendar-empty community-fallback">
         <p>{missingCommunityMessage}</p>
         <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
       </div>
     );
+  }
+
+  if (fetchFailed) {
+    return (
+      <div className="calendar-error community-fallback">
+        <p>The community feed is temporarily unavailable. Please try again.</p>
+        <Button onClick={() => setRefresh((current) => current + 1)}>Retry community feed</Button>
+        <Button href={county.links.communityUrl} variant="secondary">Open county community</Button>
+      </div>
+    );
+  }
+
+  if (!posts.length) {
+    return <div className="calendar-empty">No community posts are listed yet.</div>;
   }
 
   return (

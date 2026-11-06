@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "data:turnout": "node scripts/generate-turnout-data.mjs"
+    "data:turnout": "node scripts/generate-turnout-data.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -31,6 +32,7 @@
     "globals": "^17.5.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
-    "vite": "^6.4.2"
+    "vite": "^6.4.2",
+    "vitest": "^5.1.0"
   }
 }

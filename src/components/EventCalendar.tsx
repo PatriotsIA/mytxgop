@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { getCountyCalendarUrls, getCountyMightySpaceId } from "../data/calendarFeeds";
 import type { CountySite } from "../data/countyTypes";
-import { fetchCalendarFeed, fetchCombinedCalendarFeeds, parseIcsEvents, type CalendarEvent } from "../lib/calendar";
-import { fetchSpaceEvents, mightyIsConfigured } from "../lib/mighty";
+import { type CalendarEvent } from "../lib/calendar";
+import { loadCountyCalendar } from "../lib/county-calendar";
+import { mightyIsConfigured } from "../lib/mighty";
 import { countyPagePath } from "../lib/paths";
 import { Button } from "./Button";
 
@@ -38,6 +39,9 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
   const [loading, setLoading] = useState(hasCalendarFeed);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
+  const [refresh, setRefresh] = useState(0);
+  const [loadedKey, setLoadedKey] = useState("");
+  const requestKey = `${county.state.slug}/${county.slug}`;
 
   useEffect(() => {
     let active = true;
@@ -52,60 +56,7 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
       setLoading(true);
       setError("");
       try {
-        if (canUseMighty && mightySpaceId) {
-          const mightyEvents = await fetchSpaceEvents(mightySpaceId, 50);
-          const converted: CalendarEvent[] = [];
-          for (const event of mightyEvents) {
-            const startIso = event.starts_at || event.published_at || event.created_at;
-            if (!startIso) continue;
-            const start = new Date(startIso);
-            if (Number.isNaN(start.getTime())) continue;
-            const end = event.ends_at ? new Date(event.ends_at) : undefined;
-
-            converted.push({
-              id: `mighty-${event.id}-${start.toISOString()}`,
-              title: event.title || event.summary || "County event",
-              start,
-              end: end && !Number.isNaN(end.getTime()) ? end : undefined,
-              eventLink: event.permalink || event.link || undefined,
-              location: event.location || undefined,
-              description: event.description || undefined,
-            });
-          }
-
-          converted.sort((a, b) => a.start.getTime() - b.start.getTime());
-          const now = new Date();
-          const upcoming = converted.filter((event) => (event.end || event.start) >= now);
-
-          if (upcoming.length) {
-            if (active) {
-              setEvents(upcoming);
-              setPage(0);
-            }
-            return;
-          }
-        }
-
-        let icsText = mockIcsText;
-
-        if (!icsText && county.calendar.proxyUrl) {
-          try {
-            icsText = await fetchCalendarFeed(county.calendar.proxyUrl);
-          } catch {
-            // Local development may not have the serverless proxy running. Fall back to
-            // direct configured feeds when CORS allows it.
-          }
-        }
-
-        if (!icsText && !county.calendar.proxyUrl && feedUrls.length) {
-          icsText = await fetchCombinedCalendarFeeds(feedUrls);
-        }
-
-        if (!icsText) {
-          throw new Error("No calendar feed configured.");
-        }
-
-        const parsed = parseIcsEvents(icsText);
+        const parsed = await loadCountyCalendar({ spaceId: mightySpaceId, proxyUrl: county.calendar.proxyUrl, feedUrls, mockIcsText });
         if (active) {
           setEvents(parsed);
           setPage(0);
@@ -113,7 +64,10 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
       } catch {
         if (active) setError("We could not load this calendar feed right now.");
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          setLoadedKey(requestKey);
+          setLoading(false);
+        }
       }
     }
 
@@ -121,7 +75,7 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
     return () => {
       active = false;
     };
-  }, [canUseMighty, county.calendar.proxyUrl, feedUrls, hasCalendarFeed, mightySpaceId, mockIcsText]);
+  }, [county.calendar.proxyUrl, feedUrls, hasCalendarFeed, mightySpaceId, mockIcsText, refresh, requestKey]);
 
   const visibleEvents = useMemo(() => events.slice(page * pageSize, page * pageSize + pageSize), [events, page]);
   const hasPrevious = page > 0;
@@ -136,15 +90,16 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
     );
   }
 
-  if (loading) {
+  if (loading || loadedKey !== requestKey) {
     return <div className="calendar-empty">Loading community events...</div>;
   }
 
   if (error) {
     return (
       <div className="calendar-error community-fallback">
-        <p>{missingCommunityMessage}</p>
-        <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
+        <p>The community calendar is temporarily unavailable. Please try again.</p>
+        <Button onClick={() => setRefresh((current) => current + 1)}>Retry calendar</Button>
+        <Button href={county.links.communityUrl} variant="secondary">Open county community</Button>
       </div>
     );
   }
@@ -152,8 +107,8 @@ export function EventCalendar({ county, mockIcsText }: { county: CountySite; moc
   if (!events.length) {
     return (
       <div className="calendar-empty community-fallback">
-        <p>{missingCommunityMessage}</p>
-        <Button to={countyPagePath(county, "contact-us")}>Contact {county.displayName}</Button>
+        <p>No upcoming events are listed yet.</p>
+        <Button href={county.links.communityUrl} variant="secondary">Open county community</Button>
       </div>
     );
   }
