@@ -5,7 +5,7 @@ import { TopBar } from "../components/TopBar";
 import { Footer } from "../components/Footer";
 import { ChairNotes } from "../components/SenateCountNotice";
 import { getCounty } from "../data/counties";
-import { senateCountLetter, senateCountPath, senateCountPdf, senateCountText } from "../data/senate-count";
+import { senateCountLetter, senateCountPath, senateCountPdf, senateCountDocx } from "../data/senate-count";
 import { setPageSeo } from "../lib/seo";
 import "../styles/senate-count.css";
 
@@ -21,7 +21,7 @@ export default function SenateCount() {
       await navigator.clipboard.writeText(senateCountLetter);
       setCopyStatus("Letter copied. Replace the bracketed fields with your county’s information.");
     } catch {
-      setCopyStatus("Copy is unavailable in this browser. Download the editable text or select the letter below to copy it.");
+      setCopyStatus("Copy is unavailable in this browser. Download the Word template or select the letter below to copy it.");
     }
   }
 
@@ -38,7 +38,7 @@ export default function SenateCount() {
             <p>A letter template and instructions from Dan Rogers, Potter County Chairman, for Texas county Republican Party chairs.</p>
             <div className="button-row">
               <a className="button button-primary" href={senateCountPdf} download>Download template (PDF)</a>
-              <a className="button button-secondary" href={senateCountText} download>Download editable text</a>
+              <a className="button button-secondary" href={senateCountDocx} download>Download Word template (.docx)</a>
               <a className="button button-secondary" href="#chair-instructions">Read the instructions</a>
             </div>
           </div>

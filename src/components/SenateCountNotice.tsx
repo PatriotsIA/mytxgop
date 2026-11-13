@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { chairNotes, chairNotesHeading, senateCountPath, senateCountPdf } from "../data/senate-count";
+import { chairNotes, chairNotesHeading, senateCountPath, senateCountPdf, senateCountDocx } from "../data/senate-count";
 import "./SenateCountNotice.css";
 
 export function ChairNotes() {
@@ -20,6 +20,7 @@ export function SenateCountNotice() {
       <div className="senate-count-actions">
         <Link className="senate-count-learn" to={senateCountPath}>Learn more</Link>
         <a className="senate-count-download" href={senateCountPdf} download>Download template <span>PDF letter</span></a>
+        <a className="senate-count-download senate-count-word" href={senateCountDocx} download>Download Word template <span>Editable .docx</span></a>
       </div>
     </div>
     <details className="senate-count-notes-dropdown"

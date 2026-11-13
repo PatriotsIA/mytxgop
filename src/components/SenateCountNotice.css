@@ -10,6 +10,8 @@
 .senate-count-actions .senate-count-learn:hover { background: #e2eaf2; }
 .senate-count-actions .senate-count-download { color: #fff; background: #ba2635; border-color: #ba2635; }
 .senate-count-actions .senate-count-download:hover { background: #94202c; }
+.senate-count-actions .senate-count-word { background: #162e48; border-color: #162e48; }
+.senate-count-actions .senate-count-word:hover { background: #244767; }
 .senate-count-download span { margin-top: 3px; font-size: 12px; font-weight: 400; }
 .senate-count-notes-dropdown { border-top: 1px solid #cbd8e3; padding: 0 clamp(20px, 3vw, 32px); }
 .senate-count-notes-dropdown summary { padding: 14px 0; cursor: pointer; font: 700 14px/1.5 Arial, sans-serif; }
@@ -20,4 +22,5 @@
 .chair-notes ol { margin: 12px 0 24px; padding-left: 24px; }
 .chair-notes li + li { margin-top: 10px; }
 @media (max-width: 900px) { .senate-count-notice-main { align-items: stretch; flex-direction: column; gap: 20px; } .senate-count-actions a { flex: 1; } }
+@media (max-width: 560px) { .senate-count-actions { flex-wrap: wrap; } .senate-count-actions .senate-count-learn { flex-basis: 100%; } .senate-count-actions .senate-count-download { min-width: 0; flex-basis: calc(50% - 5px); } }
 @media (max-width: 420px) { .senate-count-actions a { padding: 12px 10px; } .senate-count-notes-dropdown summary span { display: block; margin: 4px 0 0; } }

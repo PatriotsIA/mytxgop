@@ -2,7 +2,7 @@ import letter from "./senate-count-template.txt?raw";
 
 export const senateCountPath = "/senate-count";
 export const senateCountPdf = "/forms/Senate_Manual_Count_Request_Template.pdf";
-export const senateCountText = "/forms/Senate_Manual_Count_Request_Template.txt";
+export const senateCountDocx = "/forms/Senate_Manual_Count_Request_Template.docx";
 export const senateCountLetter = letter.trim();
 
 export const chairNotesHeading = "Notes for the chair (delete before sending):";
