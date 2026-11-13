@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { SenateCountNotice } from "./SenateCountNotice";
 import "./VoterIncidentNotice.css";
 
 export function VoterIncidentNotice({ showMidterms = false }: { showMidterms?: boolean }) {
   return <>
+  <SenateCountNotice />
   <section className="voter-incident-notice lawsuit-notice" aria-labelledby="lawsuit-notice-heading">
     <div className="voter-incident-copy">
       <h2 id="lawsuit-notice-heading">{"See the GOP's Lawsuit to Verify The Election Count"}</h2>

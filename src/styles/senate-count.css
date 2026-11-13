@@ -1,0 +1,17 @@
+.senate-count-page .page-hero { background: #edf3f8; padding: 44px 0; }
+.senate-count-page .page-hero > .container { max-width: 860px; }
+.senate-count-page .hero-panel { width: 100%; }
+.senate-count-page h1 { max-width: 24ch; font-size: clamp(32px, 4vw, 56px); }
+.senate-count-page h2 { text-transform: none; letter-spacing: normal; }
+.senate-count-back { display: inline-block; margin-bottom: 24px; color: #162e48; font-weight: 700; }
+.senate-count-page .section { padding: 40px 0; }
+.senate-count-page .chair-notes { font-size: 17px; }
+.senate-count-letter-section { background: #f3f6f9; }
+.senate-count-letter-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.senate-count-letter-heading h2 { margin: 0; }
+.senate-count-copy-status { min-height: 1.7em; color: #263e54; }
+.senate-count-letter { background: #fff; border: 1px solid #cbd8e3; padding: clamp(22px, 5vw, 60px); color: #162e48; font: 400 17px/1.8 Georgia, serif; overflow-wrap: anywhere; }
+.senate-count-letter p { margin: 0 0 20px; }
+.senate-count-letter p:last-child { margin-bottom: 0; }
+.senate-count-page a:focus-visible, .senate-count-page button:focus-visible { outline: 3px solid #005bb5; outline-offset: 4px; }
+@media (max-width: 560px) { .senate-count-letter-heading { align-items: flex-start; flex-direction: column; } .senate-count-page .button-row { align-items: stretch; flex-direction: column; } }
